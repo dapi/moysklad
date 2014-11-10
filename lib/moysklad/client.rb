@@ -7,8 +7,6 @@ class Moysklad::Client
     @client.basic_auth login, password
   end
 
-  delegate :basic_auth, to: :client
-
   def get path, params={}
     validate client.get path, params
   end

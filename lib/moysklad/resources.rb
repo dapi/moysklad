@@ -1,4 +1,10 @@
 module Moysklad::Resources
+  extend ActiveSupport::Autoload
+
+  autoload :Base
+  autoload :Cached
+  autoload :Indexed
+  autoload :Stock
 
   class Good < Base; end
   class Feature < Base; end

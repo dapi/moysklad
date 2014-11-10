@@ -1,5 +1,5 @@
 module Moysklad::Entities::Common
-  extend ActiveSupport::Concern
+  extend ::ActiveSupport::Concern
 
   included do
     include HappyMapper

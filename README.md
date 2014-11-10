@@ -16,6 +16,7 @@
 
 ## Ссылочки
 
-* http://www.mindmeister.com/246618635/online-moysklad-ru
+* Картапамяти по API http://www.mindmeister.com/246618635/online-moysklad-ru
+* Документация для разработчииков https://support.moysklad.ru/hc/ru/sections/200561443-Разработчикам
 
 ## Присылайте пул-реквесты )

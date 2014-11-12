@@ -56,12 +56,19 @@ class Moysklad::Client
       @result = result
       @error = Moysklad::Entities::Error.parse result.body
       @message = @error.message
+      if defined? Rails
+        Rails.logger.error "Moysklad::ParsedError: #{result.status} #{result.body}"
+      end
     rescue => err
       @message = "#{err}: #{result}"
     end
 
     def message
       @message
+    end
+
+    def to_s
+      message
     end
 
     attr_reader :error

@@ -1,6 +1,11 @@
 class Moysklad::Resources::Base
   PREFIX_PATH = 'exchange/rest/ms/xml/'
 
+  def self.inherited superclass
+    super
+    Moysklad::Resources.register_resource superclass
+  end
+
   # https://support.moysklad.ru/hc/ru/articles/203404253-REST-сервис-синхронизации-данных
   def initialize client: nil
     raise "Должен быть Moysklad::Client" unless client.is_a? Moysklad::Client
@@ -23,6 +28,13 @@ class Moysklad::Resources::Base
     client.delete item_path uuid 
   end
 
+  def self.type
+    ActiveSupport::Inflector.singularize name.split('::').last
+  end
+
+  def self.entity_class
+    ActiveSupport::Inflector.constantize "Moysklad::Entities::#{type}"
+  end
   private
 
   attr_reader :client
@@ -32,7 +44,7 @@ class Moysklad::Resources::Base
   end
 
   def parse content
-    entity_class.parse content
+    self.class.entity_class.parse content
   end
 
   def item_path uuid
@@ -48,14 +60,7 @@ class Moysklad::Resources::Base
   end
 
   def prefix_path
-    PREFIX_PATH + type
+    PREFIX_PATH + self.class.type
   end
 
-  def type
-    self.class.name.split('::').last
-  end
-
-  def entity_class
-    "Moysklad::Entities::#{type}".constantize
-  end
 end

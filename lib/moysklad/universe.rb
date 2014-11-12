@@ -1,19 +1,19 @@
 module Moysklad
   class Universe
-    AVAILABLE_RESOURCES = [:features, :consignments, :stock]
-
     def class_by_resource resource
       "Moysklad::Resources::#{resource.to_s.singularize.capitalize}".constantize
     end
 
     def initialize client: nil
+      raise "Должен быть client[Moysklad::Client]" unless client.is_a? Moysklad::Client
       @client = client
       @resources={}
     end
 
-    AVAILABLE_RESOURCES.each do |resource|
-      define_method resource do
-        @resources[resource] ||= self.class_by_resource(resource).new( client: client )
+    Moysklad::Resources.resources.each do |resource_klass|
+      method_name = ActiveSupport::Inflector.underscore ActiveSupport::Inflector.pluralize(resource_klass.type)
+      define_method method_name do
+        @resources[resource_klass.type] ||= resource_klass.new( client: client )
       end
     end
 

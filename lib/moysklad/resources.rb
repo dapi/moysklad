@@ -1,4 +1,6 @@
 module Moysklad::Resources
+  mattr_accessor :resources
+
   extend ActiveSupport::Autoload
 
   autoload :Base
@@ -6,20 +8,20 @@ module Moysklad::Resources
   autoload :Indexed
   autoload :Stock
 
-  class Good < Base; end
-  class Feature < Base; end
+  def self.register_resource resource_class
+    self.resources ||= []
+    self.resources << resource_class
+  end
 
   class Metadata < Base
-    def entity_class
+    def self.entity_class
       Moysklad::Entities::EmbeddedEntityMetadata
     end
   end
 
-  class CustomerOrder < Base; end
-  class Warehouse < Base; end
-  class Attribute < Base; end
-  class Company < Base; end
-  class Consignment < Base; end
-  class MyCompany < Base; end
+  # Простые ресурсы
+  %w{Goods Features CustomerOrders Warehouses Attributes Companies Consignments MyCompanies}.each do |klass_name|
+    const_set klass_name, Class.new( Base )
+  end
 
 end

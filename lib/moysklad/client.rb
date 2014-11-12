@@ -30,9 +30,8 @@ class Moysklad::Client
   attr_reader :client
 
   def validate res
-    return res.body if res.state == 200
-
     Moysklad.logger.debug "Moyskad::Client: #{res.status}: #{res.body}"
+    return res.body if res.status == 200
 
     case res.status
     when 405
@@ -59,6 +58,7 @@ class Moysklad::Client
 
       @message = text
     rescue => err
+      Moysklad.logger.debug "Moyskad::Client parse error #{err}: #{res.body}"
       @message = "#{err}: #{res}"
     end
 

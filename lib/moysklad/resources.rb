@@ -3,15 +3,16 @@ module Moysklad::Resources
 
   extend ActiveSupport::Autoload
 
-  autoload :Base
-  autoload :Cached
-  autoload :Indexed
-  autoload :Stock
-
   def self.register_resource resource_class
     self.resources ||= []
     self.resources << resource_class
   end
+
+  autoload :Base
+  autoload :Cached
+  autoload :Indexed
+
+  require_relative 'resources/stock'
 
   class Metadata < Base
     def self.entity_class

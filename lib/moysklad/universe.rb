@@ -11,8 +11,7 @@ module Moysklad
     end
 
     Moysklad::Resources.resources.each do |resource_klass|
-      method_name = ActiveSupport::Inflector.underscore ActiveSupport::Inflector.pluralize(resource_klass.type)
-      define_method method_name do
+      define_method resource_klass.pluralized_type do
         @resources[resource_klass.type] ||= resource_klass.new( client: client )
       end
     end

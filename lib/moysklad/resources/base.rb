@@ -29,11 +29,15 @@ class Moysklad::Resources::Base
   end
 
   def self.type
-    ActiveSupport::Inflector.singularize name.split('::').last
+    ActiveSupport::Inflector.singularize name.split('::').last.to_sym
+  end
+
+  def self.pluralized_type
+    ActiveSupport::Inflector.underscore ActiveSupport::Inflector.pluralize type
   end
 
   def self.entity_class
-    ActiveSupport::Inflector.constantize "Moysklad::Entities::#{type}"
+    ActiveSupport::Inflector.constantize "Moysklad::Entities::#{type.to_s}"
   end
   private
 

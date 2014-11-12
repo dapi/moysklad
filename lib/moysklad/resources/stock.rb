@@ -13,8 +13,12 @@ module Moysklad::Resources
       'exchange/rest/stock/xml'
     end
 
-    def entity_class
+    def self.entity_class
       Moysklad::Entities::StockTO
+    end
+
+    def self.pluralized_type
+      :stock
     end
   end
 end

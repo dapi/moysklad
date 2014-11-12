@@ -30,14 +30,14 @@ class Moysklad::Client
   attr_reader :client
 
   def validate res
-    Moysklad.logger.debug "Moyskad::Client: #{res.status}: #{res.body}"
     return res.body if res.status == 200
+    Moysklad.logger.warn "Moyskad::Client: #{res.status}: #{res.env.url.to_s}\n#{res.body}"
 
     case res.status
     when 405
       raise MethodNotAllowedError.new res
     when 404 
-      raise NoResourceFound
+      raise NoResourceFound.new res.body
     when 500 
       raise ParsedError.new(res)
     else 
@@ -45,35 +45,45 @@ class Moysklad::Client
     end
   end
 
-  class Error < StandardError; end
+  class Error < StandardError
+    attr_reader :message
+
+    def initialize mess
+      @message = mess
+    end
+
+    def to_s
+      message
+    end
+  end
+
   class NoResourceFound < Error; end
 
   class MethodNotAllowedError < Error
-    attr_reader :message
-    alias :message :to_s
     def initialize res
       @result = res
-      doc = Nokogiri::HTML(res.body)
-      text = doc.css('body').css('h1').text
-
-      @message = text
-    rescue => err
-      Moysklad.logger.debug "Moyskad::Client parse error #{err}: #{res.body}"
-      @message = "#{err}: #{res}"
+      @message = parse_title res.body
     end
 
+    private
+
+    def parse_title body
+      doc = Nokogiri::HTML body
+      doc.css('body').css('h1').text
+    rescue => err
+      Moysklad.logger.debug "Moyskad::Client parse error #{err}: #{res.body}"
+      body
+    end
   end
 
   class ParsedError < Error
-    attr_reader :message
-    alias :message :to_s
     def initialize result
       @status = result.status
       @result = result
       @error = Moysklad::Entities::Error.parse result.body
       @message = @error.message
     rescue => err
-      @message = "#{err}: #{result}"
+      @message = "error in init #{err}: #{result}"
     end
 
     attr_reader :error

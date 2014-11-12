@@ -55,10 +55,13 @@ class Moysklad::Client
       @status = result.status
       @result = result
       @error = Moysklad::Entities::Error.parse result.body
+      @message = @error.message
+    rescue => err
+      @message = "#{err}: #{result}"
     end
 
     def message
-      @error.message
+      @message
     end
 
     attr_reader :error

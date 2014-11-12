@@ -8,4 +8,5 @@ module Moysklad
    autoload :Entities
    autoload :Resources
    autoload :Client
+   autoload :Universe
 end

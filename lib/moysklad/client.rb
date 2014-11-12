@@ -30,14 +30,13 @@ class Moysklad::Client
   attr_reader :client
 
   def validate res
-    case res.status
-    when 200
-      res.body
-    when 405
-      doc = Nokogiri::HTML(res.body)
-      text = doc.css('body').css('h1').text
+    return res.body if res.state == 200
 
-      raise Error.new "405 - #{text}"
+    Moysklad.logger.debug "Moyskad::Client: #{res.status}: #{res.body}"
+
+    case res.status
+    when 405
+      raise MethodNotAllowedError.new res
     when 404 
       raise NoResourceFound
     when 500 
@@ -50,7 +49,24 @@ class Moysklad::Client
   class Error < StandardError; end
   class NoResourceFound < Error; end
 
+  class MethodNotAllowedError < Error
+    attr_reader :message
+    alias :message :to_s
+    def initialize res
+      @result = res
+      doc = Nokogiri::HTML(res.body)
+      text = doc.css('body').css('h1').text
+
+      @message = text
+    rescue => err
+      @message = "#{err}: #{res}"
+    end
+
+  end
+
   class ParsedError < Error
+    attr_reader :message
+    alias :message :to_s
     def initialize result
       @status = result.status
       @result = result
@@ -61,14 +77,6 @@ class Moysklad::Client
       end
     rescue => err
       @message = "#{err}: #{result}"
-    end
-
-    def message
-      @message
-    end
-
-    def to_s
-      message
     end
 
     attr_reader :error

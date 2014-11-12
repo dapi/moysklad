@@ -1,4 +1,6 @@
-# Ruby-клиент для API moysklad.ru
+# Правильный Ruby-клиент для API moysklad.ru
+
+[![Build Status](https://travis-ci.org/BrandyMint/moysklad.svg)](https://travis-ci.org/BrandyMint/moysklad)
 
 Отличительные черты:
 

@@ -2,6 +2,7 @@ module Moysklad
   module Entities
     extend ActiveSupport::Autoload
 
+    autoload :XmlFix
     autoload :CommonObject
     autoload :CompanyConcern
     autoload :Common

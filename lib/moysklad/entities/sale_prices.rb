@@ -1,6 +1,7 @@
 module Moysklad::Entities
   class SalePrices < Base
     include HappyMapper
+    include Moysklad::Entities::XmlFix
 
     tag 'salePrices'
 

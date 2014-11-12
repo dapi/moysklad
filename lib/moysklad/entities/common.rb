@@ -3,6 +3,7 @@ module Moysklad::Entities::Common
 
   included do
     include HappyMapper
+    include Moysklad::Entities::XmlFix
 
     attribute :readMode,    String
     attribute :changeMode,  String

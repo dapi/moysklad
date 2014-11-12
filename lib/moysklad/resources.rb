@@ -17,6 +17,7 @@ module Moysklad::Resources
 
   class CustomerOrder < Base; end
   class Warehouse < Base; end
+  class Attribute < Base; end
   class Company < Base; end
   class Consignment < Base; end
   class MyCompany < Base; end

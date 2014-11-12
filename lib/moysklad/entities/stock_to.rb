@@ -1,6 +1,7 @@
 module Moysklad::Entities
   class StockTO < Base
     include HappyMapper
+    include Moysklad::Entities::XmlFix
 
     tag 'stockTO'
 

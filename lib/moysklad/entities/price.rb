@@ -1,6 +1,7 @@
 module Moysklad::Entities
   class Price < Base
     include HappyMapper
+    include Moysklad::Entities::XmlFix
 
     def self.from_money money
       p = new

@@ -28,11 +28,7 @@ class Moysklad::Resources::Base
   attr_reader :client
 
   def prepare_resource resource
-    if resource.is_a? Moysklad::Entities::Base
-      resource.to_xml(Nokogiri::XML::Builder.new(encoding: 'utf-8')).to_xml 
-    else
-      resource
-    end
+    resource
   end
 
   def parse content

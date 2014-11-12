@@ -1,6 +1,6 @@
 module Moysklad::Entities
   class Attribute < Base
-    include Common
+    include Moysklad::Entities::Common
 
     tag 'attribute'
 

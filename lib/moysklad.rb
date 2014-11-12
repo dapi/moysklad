@@ -13,4 +13,8 @@ module Moysklad
   autoload :Universe
 end
 
-Moysklad.logger = Logger.new STDERR
+if defined? Rails
+  Moysklad.logger = Rails.logger
+else
+  Moysklad.logger = Logger.new STDERR
+end

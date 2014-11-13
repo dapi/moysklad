@@ -11,7 +11,8 @@ describe Moysklad::Universe do
     subject { Moysklad::Universe.new client: client }
 
     it 'should have a features resoruce' do
-      expect(subject.features).to be_a Moysklad::Resources::Features
+      expect(subject.features).to be_a Moysklad::Resources::Indexed
+      expect(subject.features.resource).to be_a Moysklad::Resources::Features
     end
   end
 

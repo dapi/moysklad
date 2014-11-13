@@ -14,7 +14,11 @@
 
 ## Использование
 
-> ms_client = MS::Client.new login:'ВАШ ЛОГИН', password:'ВАШ ПАРОЛЬ'
+> client = MS::Client.new login:'ВАШ ЛОГИН', password:'ВАШ ПАРОЛЬ'
+
+## Тестирование
+
+> ./scripts/rest.sh Consignment list
 
 ## Ссылочки
 

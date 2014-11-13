@@ -1,47 +1,42 @@
-class Moysklad::Resources::Indexed < SimpleDelegator
+class Moysklad::Resources::Indexed  < SimpleDelegator
 
-  def preload!
-    all
+  def initialize resource
+    raise 'resource должен быть Moysklad::Resources::Base' unless resource.is_a? Moysklad::Resources::Base
+    super resource
   end
 
   def all
-    list
+    @cached_list || pull_list
   end
 
-  def list filters={}
-    if filters.empty?
-      if @index_loaded
-        @index
-      else
-        pull_indexed
-      end
-    else
-      pull_list filters
-    end
+  def get uuid
+    index[uuid]
   end
 
-  def find uuid
-    if @index && @index.include?(uuid)
-      @index[uuid]
-    else
-      @index[uuid]=__getobj__.get(uuid)
-    end
+  def uuids
+    index.keys
+  end
+
+  def resource
+    __getobj__
   end
 
   private
 
-  def pull_list filters={}
-     __getobj__.list filters
+  def index
+    pull_list unless @_index
+    @_index
   end
 
-  def pull_indexed
-    list = pull_list
-    @index = {}
-    list.each do |o|
-      raise "В индексе уже существует элемент с таким uuid: #{o.uuid}" if @index.include? o.uuid
-      @index[o.uuid]=o
+  def pull_list 
+    @cached_list = list
+    @_index={}
+    @cached_list.each do |r|
+      raise "У объекта нет uuid: #{r.to_xml}" unless r.respond_to?(:uuid) && r.uuid
+      @_index[r.uuid]=r
     end
-    @index_loaded = true
-    @index.values
+
+    @cached_list
   end
+
 end

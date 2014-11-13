@@ -26,4 +26,3 @@ module Moysklad
     end
   end
 end
-

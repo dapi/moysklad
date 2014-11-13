@@ -26,6 +26,8 @@ module Moysklad
       StockTO
       Company
       Warehouse
+      Collection
+      Page
     }.each do |m|
       autoload m
     end

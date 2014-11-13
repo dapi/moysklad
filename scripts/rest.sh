@@ -2,6 +2,7 @@
 #   source ./tmp/test_env
 resource=$1
 action=$2
+start=$3
 
 if [ -z "$MS_LOGIN" ] || [ -z "$MS_PASSWORD" ]; then
   echo "Утсановите переменные окружения MS_LOGIN и MS_PASSWORD"
@@ -15,5 +16,5 @@ if [ -z "$resource" ]; then
 fi
 
 
-curl -is -u $MS_LOGIN:$MS_PASSWORD https://online.moysklad.ru/exchange/rest/ms/xml/$1/$2
+curl -is -u $MS_LOGIN:$MS_PASSWORD https://online.moysklad.ru/exchange/rest/ms/xml/$1/$2?start=$start
 

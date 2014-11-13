@@ -10,7 +10,7 @@ class Moysklad::Client
   end
 
   def get path, params={}
-    logger.debug "Client: GET #{path}"
+    logger.debug "Client: GET #{path} #{params}"
     validate client.get path, params
   end
 

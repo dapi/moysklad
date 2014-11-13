@@ -16,6 +16,10 @@ class Moysklad::Resources::Base
     parse client.get list_path, params
   end
 
+  def collection params={}
+    parse_collection client.get list_path, params
+  end
+
   def find uuid
     parse client.get item_path uuid
   end
@@ -49,6 +53,16 @@ class Moysklad::Resources::Base
 
   def parse content
     self.class.entity_class.parse content
+  end
+
+  def parse_collection content
+    col = Moysklad::Entities::Collection.parse content
+
+    # TODO Парсится два раза. Оптимизировать. Например сделать динамические CollectionFeature 
+    # и парсить через них
+
+    items = parse content
+    Moysklad::Entities::Page.new items, col.total,  col.start, col.count
   end
 
   def item_path uuid

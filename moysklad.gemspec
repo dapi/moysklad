@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["danil@brandymint.ru"]
   spec.summary       = %q{Клиент для работы с API moysklad.ru}
   spec.description   = %q{Правильный клиент для работы c xml rest API moyslad.ru, созданный по принципам SOLID}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/brandymint/moysklad"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

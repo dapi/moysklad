@@ -1,6 +1,6 @@
 class Moysklad::Client
   class Errors
-    def self.build
+    def self.build res
       Moysklad.logger.warn "Moyskad::Client: #{res.status}: #{res.env.url.to_s}\n#{res.body}"
 
       case res.status

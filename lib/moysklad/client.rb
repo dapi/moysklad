@@ -40,7 +40,7 @@ class Moysklad::Client
   def validate res
     return res.body if res.status == 200
 
-    Moysklad::Client::Error.build res
+    Moysklad::Client::Errors.build res
   end
 
 end

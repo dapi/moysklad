@@ -13,6 +13,7 @@ describe Moysklad::Universe do
     it 'should have a features resoruce' do
       expect(subject.features).to be_a Moysklad::Resources::Indexed
       expect(subject.features.resource).to be_a Moysklad::Resources::Features
+      expect(subject.metadata.resource).to be_a Moysklad::Resources::Metadata
     end
   end
 

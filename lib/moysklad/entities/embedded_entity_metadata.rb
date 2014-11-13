@@ -10,6 +10,8 @@ module Moysklad::Entities
     attribute :independentNameGenerator, Boolean
     attribute :partialReserve,           Boolean
 
+    has_many  :attributeMetadata,        AttributeMetadata
+
     element :code,          String
   end
 end

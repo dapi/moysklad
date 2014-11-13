@@ -1,0 +1,15 @@
+HTTP/1.1 302 Moved Temporarily
+Server: nginx
+Date: Thu, 13 Nov 2014 16:43:43 GMT
+Content-Type: text/html
+Content-Length: 154
+Connection: keep-alive
+Location: http://brandymint.ru/
+
+<html>
+<head><title>302 Found</title></head>
+<body bgcolor="white">
+<center><h1>302 Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>

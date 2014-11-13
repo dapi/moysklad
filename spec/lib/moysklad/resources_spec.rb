@@ -5,5 +5,6 @@ describe Moysklad::Resources do
     expect(Moysklad::Resources).to be_a Module
 
     expect(Moysklad::Resources.resources).to include(Moysklad::Resources::Features)
+    expect(Moysklad::Resources.resources).to include(Moysklad::Resources::Metadata)
   end
 end

@@ -43,6 +43,7 @@ class Moysklad::Resources::Indexed  < SimpleDelegator
     begin
       page = collection start: start
       list += page.items
+      break if page.items.empty?
       start = list.count
     end while start<page.total
 

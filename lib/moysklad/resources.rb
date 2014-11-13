@@ -8,17 +8,12 @@ module Moysklad::Resources
     self.resources << resource_class
   end
 
-  autoload :Base
-  autoload :Cached
-  autoload :Indexed
-
+  require_relative 'resources/base'
+  require_relative 'resources/indexed'
   require_relative 'resources/stock'
-
-  class Metadata < Base
-    def self.entity_class
-      Moysklad::Entities::EmbeddedEntityMetadata
-    end
-  end
+  require_relative 'resources/metadata'
+  require_relative 'resources/metadata_indexed'
+  require_relative 'resources/subresource'
 
   # Простые ресурсы
   %w{Goods Features CustomerOrders Warehouses Attributes Companies Consignments MyCompanies}.each do |klass_name|

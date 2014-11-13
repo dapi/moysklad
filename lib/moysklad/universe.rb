@@ -12,7 +12,7 @@ module Moysklad
 
     Moysklad::Resources.resources.each do |resource_klass|
       define_method resource_klass.pluralized_type do
-        @resources[resource_klass.type] ||= Moysklad::Resources::Indexed.new resource_klass.new( client: client )
+        @resources[resource_klass.type] ||= resource_klass.indexed( client: client )
       end
     end
 
@@ -20,10 +20,6 @@ module Moysklad
 
     attr_reader :client
     
-    def available_resources
-      [:features, :consignments]
-    end
-
   end
 
 end

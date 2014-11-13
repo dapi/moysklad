@@ -21,6 +21,7 @@ module Moysklad
       Base
       CustomerOrder
       Feature
+      AttributeMetadata
       EmbeddedEntityMetadata
       Price
       StockTO

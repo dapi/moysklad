@@ -6,6 +6,10 @@ class Moysklad::Resources::Base
     Moysklad::Resources.register_resource superclass
   end
 
+  def self.indexed *args
+    Moysklad::Resources::Indexed.new new(*args)
+  end
+
   # https://support.moysklad.ru/hc/ru/articles/203404253-REST-сервис-синхронизации-данных
   def initialize client: nil
     raise "Должен быть Moysklad::Client" unless client.is_a? Moysklad::Client

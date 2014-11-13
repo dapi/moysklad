@@ -15,6 +15,12 @@ if [ -z "$resource" ]; then
   exit 2
 fi
 
+url="https://online.moysklad.ru/exchange/rest/ms/xml/$1/$2"
 
-curl -is -u $MS_LOGIN:$MS_PASSWORD https://online.moysklad.ru/exchange/rest/ms/xml/$1/$2?start=$start
+if [ -n "$start" ]; then
+  url="$url?start=$start"
+fi
+
+echo $url >&2
+curl -is -u $MS_LOGIN:$MS_PASSWORD url
 

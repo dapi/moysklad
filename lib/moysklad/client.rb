@@ -10,10 +10,12 @@ class Moysklad::Client
   end
 
   def get path, params={}
+    logger.debug "Client: GET #{path}"
     validate client.get path, params
   end
 
   def put path, data
+    logger.debug "Client: PUT #{path}"
     result = client.put do |req|
       req.url path
       req.headers['Content-Type'] = 'application/xml'
@@ -30,6 +32,10 @@ class Moysklad::Client
   private
 
   attr_reader :client
+
+  def logger
+    Moysklad.logger
+  end
 
   def validate res
     return res.body if res.status == 200

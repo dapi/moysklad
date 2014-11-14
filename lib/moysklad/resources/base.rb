@@ -52,7 +52,11 @@ class Moysklad::Resources::Base
   attr_reader :client
 
   def prepare_resource resource
-    resource
+    if resource.is_a? Moysklad::Entities::Base
+      resource.to_xml.to_s
+    else
+      resource.to_s
+    end
   end
 
   def parse content

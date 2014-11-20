@@ -4,11 +4,11 @@ module Moysklad::Entities::XmlFix
   included do
 
     def to_utf_xml
-      super(Nokogiri::XML::Builder.new(encoding: 'utf-8')).to_xml
+      to_xml(Nokogiri::XML::Builder.new(encoding: 'utf-8')).to_xml
     end
 
     def to_s
-      to_xml.to_s
+      to_utf_xml.to_s
     end
   end
 end

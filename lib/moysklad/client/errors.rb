@@ -10,8 +10,10 @@ class Moysklad::Client
         raise UnauthorizedError.new res
       when 404 
         raise NoResourceFound.new res.body
-      when 500 
+      when 500
         raise ParsedError.new(res)
+      when 502
+        raise HtmlParsedError.new(res)
       else 
         raise ParsedError.new(res)
       end
@@ -36,8 +38,8 @@ class Moysklad::Client
 
   class HtmlParsedError < Error
     def initialize res
-      @result = res
-      @message = parse_title res.body
+      @result  = res
+      @message = "[#{res.status}] #{parse_title res.body}"
     end
 
     private

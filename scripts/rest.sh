@@ -17,10 +17,10 @@ fi
 
 url="https://online.moysklad.ru/exchange/rest/ms/xml/$1/$2"
 
-if [ -n "$start" ]; then
+if [ "$action"=="list" ] && [ -n "$start" ]; then
   url="$url?start=$start"
 fi
 
 echo $url >&2
-curl -is -u $MS_LOGIN:$MS_PASSWORD url
+curl --max-redirs 3 -is -u $MS_LOGIN:$MS_PASSWORD $url
 

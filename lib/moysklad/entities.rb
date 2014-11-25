@@ -8,6 +8,7 @@ module Moysklad
     autoload :Common
 
     %w{
+      GoodFolder
       Good
       Barcode
       SalePrices

@@ -1,5 +1,5 @@
-module Moysklad::GoodFolder
-  class Good < Base
+module Moysklad::Entities
+  class GoodFolder < Base
     include CommonObject
 
     tag 'goodFolder'

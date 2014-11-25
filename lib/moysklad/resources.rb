@@ -14,6 +14,7 @@ module Moysklad::Resources
   require_relative 'resources/metadata'
   require_relative 'resources/metadata_indexed'
   require_relative 'resources/subresource'
+  require_relative 'resources/good_folders'
 
   # Простые ресурсы
   %w{Goods Features CustomerOrders Warehouses Attributes Companies Consignments MyCompanies}.each do |klass_name|

@@ -9,7 +9,7 @@ class Moysklad::Resources::Indexed  < SimpleDelegator
     @cached_list || pull_list
   end
 
-  def get uuid
+  def find uuid
     index[uuid]
   end
 

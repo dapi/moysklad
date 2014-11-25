@@ -23,7 +23,7 @@ describe Moysklad::Resources::Indexed do
     end
 
     it 'элемет получаем из кеша' do
-      expect(subject.get uuid).to be_a consignments_resource.class.entity_class
+      expect(subject.find uuid).to be_a consignments_resource.class.entity_class
       expect(WebMock).to have_requested(:get, resource_list_url(consignments_resource, 0)).once
       expect(WebMock).to have_requested(:get, resource_list_url(consignments_resource, 1000)).once
     end

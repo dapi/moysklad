@@ -24,7 +24,7 @@ class Moysklad::Resources::Base
     parse_collection client.get list_path, params
   end
 
-  def find uuid
+  def get uuid
     parse client.get item_path uuid
   end
 
@@ -47,6 +47,7 @@ class Moysklad::Resources::Base
   def self.entity_class
     ActiveSupport::Inflector.constantize "Moysklad::Entities::#{type.to_s}"
   end
+
   private
 
   attr_reader :client

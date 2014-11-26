@@ -17,7 +17,7 @@ module Moysklad::Resources
   require_relative 'resources/good_folders'
 
   # Простые ресурсы
-  %w{Goods Features CustomerOrders Warehouses Attributes Companies Consignments MyCompanies}.each do |klass_name|
+  %w{Goods Features CustomEntities CustomerOrders Warehouses Attributes Companies Consignments MyCompanies}.each do |klass_name|
     const_set klass_name, Class.new( Base )
   end
 

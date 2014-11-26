@@ -5,26 +5,18 @@ module Moysklad::Entities
     tag 'good'
 
     attribute :isSerialTrackable, Boolean
-
     attribute :buyPrice,          Float
     attribute :buyCurrencyUuid,   String
-
     attribute :minPrice,          Float
-
     attribute :salePrice,         Float
     attribute :saleCurrencyUuid,  String
-
     attribute :weight,            Float
     attribute :volume,            Float
-
     attribute :parentUuid,        String
-
     attribute :productCode,       String
-
     attribute :uomUuid,           String
 
     element   :code,              String
-
     element   :salePrices,        Moysklad::Entities::SalePrices
 
     has_many  :attributes,        Attribute
@@ -32,5 +24,10 @@ module Moysklad::Entities
     # preferences
     # images
 
+    def features universe
+      cache :features, universe do
+        universe.features.where goodUuid: uuid
+      end
+    end
   end
 end

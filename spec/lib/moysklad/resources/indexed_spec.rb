@@ -7,7 +7,9 @@ describe Moysklad::Resources::Indexed do
     stub_consignments_requests
   end
 
-  subject { Moysklad::Resources::Indexed.new consignments_resource }
+  let(:resource) { Moysklad::Resources::Indexed.new consignments_resource }
+
+  subject { resource }
 
   it 'загружено верное количество данных' do
     expect(subject.all.count).to eq items_count
@@ -29,5 +31,31 @@ describe Moysklad::Resources::Indexed do
     end
   end
 
-end
+  describe 'filtered?' do
+    subject { resource.send :filtered?, item, filter }
 
+    context 'под фильтр попадает все если фильтр пуст' do
+      let(:item) { double }
+      let(:filter) { {} }
+      it do
+        expect(subject).to be true
+      end
+    end
+
+    context 'отсеивает что не надо' do
+      let(:item) { double some_key: 123 }
+      let(:filter) { { some_key: 124} }
+      it do
+        expect(subject).to be false
+      end
+    end
+    context 'фильтрует что надо' do
+      let(:item) { double some_key: 123 }
+      let(:filter) { { some_key: 123} }
+      it do
+        expect(subject).to be true
+      end
+    end
+  end
+
+end

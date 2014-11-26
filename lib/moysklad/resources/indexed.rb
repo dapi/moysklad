@@ -13,6 +13,10 @@ class Moysklad::Resources::Indexed  < SimpleDelegator
     index[uuid]
   end
 
+  def where filter
+    index.values.select { |v| filtered? v, filter }
+  end
+
   def uuids
     index.keys
   end
@@ -22,6 +26,10 @@ class Moysklad::Resources::Indexed  < SimpleDelegator
   end
 
   private
+
+  def filtered? o, filter={}
+    filter.select { |k,v| o.send(k)==v }.count == filter.keys.count
+  end
 
   def index
     pull_list unless @_index

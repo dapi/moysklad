@@ -28,6 +28,10 @@ module RspecResourceSupport
     @client ||= Moysklad::Client.new
   end
 
+  def universe
+    @universe ||= Moysklad::Universe.new client: client
+  end
+
   def resource_list_url res=nil, start=nil
     res ||= resource
     url = Moysklad::Client::URL + '/' + res.send(:list_path)

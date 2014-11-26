@@ -29,6 +29,7 @@ module Moysklad
       Company
       Warehouse
       Collection
+      CustomEntity
       Page
     }.each do |m|
       autoload m

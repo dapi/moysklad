@@ -1,5 +1,6 @@
-# https://online.moysklad.ru/exchange/rest/ms/xml/CustomEntity/list
-# Значения перечисляемых свойств
+# https://online.moysklad.ru/exchange/rest/ms/xml/CustomEntityMetadata/list
+#
+# Пользовательские справочники
 module Moysklad::Entities
   class CustomEntityMetadata < Base
     include CommonObject
@@ -22,6 +23,9 @@ module Moysklad::Entities
 
     attribute :noApplicableFromOtherPlaceTarget, Boolean
 
+    # Список перечисляемых значений данного справочника
+    #
+    # @return [Array[CustomEntity]]
     def entities universe
       universe.custom_entities.where entityMetadataUuid: uuid
     end

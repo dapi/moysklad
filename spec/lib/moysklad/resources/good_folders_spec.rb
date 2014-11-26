@@ -10,7 +10,7 @@ describe Moysklad::Resources::GoodFolders do
     subject { Moysklad::Resources::GoodFolders.new client: client }
 
     it 'should get item' do
-      expect(subject.send(:list_path)).to  eq "exchange/rest/ms/xml/Goods/list"
+      expect(subject.send(:list_path)).to  eq "exchange/rest/ms/xml/GoodFolder/list"
     end
   end
 

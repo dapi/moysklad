@@ -15,6 +15,10 @@ module Moysklad::Entities
       universe.metadata.subresource_by_name 'GoodFolder', metadataUuid
     end
 
+    def attributeName universe
+      attributeMetadata(universe).name
+    end
+
     def get_value universe
       case attributeMetadata(universe).attrType
       when 'ID_CUSTOM'

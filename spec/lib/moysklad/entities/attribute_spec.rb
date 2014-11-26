@@ -29,6 +29,7 @@ describe Moysklad::Entities::Attribute do
     it do
       expect(subject.attributeMetadata(universe)).to be_a Moysklad::Entities::AttributeMetadata
       expect(subject.attributeMetadata(universe).name).to eq 'Вставки'
+      expect(subject.attributeName(universe)).to eq 'Вставки'
     end
 
     it do

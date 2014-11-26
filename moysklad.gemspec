@@ -27,4 +27,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard"
   spec.add_development_dependency "guard-rspec"
   spec.add_development_dependency 'guard-ctags-bundler'
+  spec.add_development_dependency 'yard'
 end

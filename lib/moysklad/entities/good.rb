@@ -23,9 +23,14 @@ module Moysklad::Entities
 
     attribute :uomUuid,           String
 
-    element :code,          String
+    element   :code,                String
 
-    element :salePrices,          Moysklad::Entities::SalePrices
+    element   :salePrices,          Moysklad::Entities::SalePrices
+
+    has_many  :atttribute,         Attribute
+
+    # preferences
+    # images
 
   end
 end

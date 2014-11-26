@@ -4,8 +4,10 @@ module Moysklad::Entities
 
     tag 'attribute'
 
-    attribute :metadataUuid, String
-    attribute :valueString, String
+    attribute :metadataUuid,    String
+    attribute :valueString,     String
+
+    attribute :entityValueUuid, String
 
   end
 end

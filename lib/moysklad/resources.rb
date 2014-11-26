@@ -14,11 +14,11 @@ module Moysklad::Resources
   require_relative 'resources/metadata'
   require_relative 'resources/custom_entity_metadata'
   require_relative 'resources/metadata_indexed'
-  require_relative 'resources/good_folders'
+  #require_relative 'resources/good_folders'
   require_relative 'resources/subresource'
 
   # Простые ресурсы
-  %w{Goods Features CustomEntities CustomerOrders Warehouses Attributes Companies Consignments MyCompanies}.each do |klass_name|
+  %w{Goods GoodFolders Features CustomEntities CustomerOrders Warehouses Attributes Companies Consignments MyCompanies}.each do |klass_name|
     const_set klass_name, Class.new( Base )
   end
 

@@ -15,5 +15,13 @@ module Moysklad::Entities
     attribute :required,            Boolean
     attribute :dictionaryMetadataUuid, String
 
+    def dictionatyMetadata universe
+      universe.custom_entity_metadata.find dictionaryMetadataUuid
+    end
+
+    def entityMetadata universe
+      universe.metadata.find entityMetadataUuid
+    end
+
   end
 end

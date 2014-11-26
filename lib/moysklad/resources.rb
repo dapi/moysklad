@@ -12,9 +12,10 @@ module Moysklad::Resources
   require_relative 'resources/indexed'
   require_relative 'resources/stock'
   require_relative 'resources/metadata'
+  require_relative 'resources/custom_entity_metadata'
   require_relative 'resources/metadata_indexed'
-  require_relative 'resources/subresource'
   require_relative 'resources/good_folders'
+  require_relative 'resources/subresource'
 
   # Простые ресурсы
   %w{Goods Features CustomEntities CustomerOrders Warehouses Attributes Companies Consignments MyCompanies}.each do |klass_name|

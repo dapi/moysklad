@@ -27,15 +27,15 @@ describe Moysklad::Entities::Attribute do
     subject { attribute_with_id_custom }
 
     it do
-      expect(subject.attributeMetadata(universe)).to be_a Moysklad::Entities::AttributeMetadata
-      expect(subject.attributeMetadata(universe).name).to eq 'Вставки'
+      expect(subject.metadata(universe)).to be_a Moysklad::Entities::AttributeMetadata
+      expect(subject.metadata(universe).name).to eq 'Вставки'
       expect(subject.attributeName(universe)).to eq 'Вставки'
     end
 
     it do
       expect(subject.get_value(universe)).to eq "Культ. жемчуг, куб. циркон"
     end
+
   end
 
 end
-

@@ -15,12 +15,10 @@ describe Moysklad::Resources::Base do
   end
 
   describe 'collection' do
-    let(:raw_response) { raw_feature_list }
     let(:resource) { Moysklad::Resources::Features.new client: client }
-    let(:url) { resource_list_url }
 
     before do
-      stub_request(:get, url).to_return(raw_response)
+      stub_rest :Feature
     end
 
     subject { resource.collection }

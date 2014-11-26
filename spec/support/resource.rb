@@ -24,6 +24,12 @@ module RspecResourceSupport
     863
   end
 
+  def stub_rest type, action=:list, start=nil
+    url = "https://online.moysklad.ru/exchange/rest/ms/xml/#{type}/#{action}" 
+    url << "?start=#{start}" if start
+    stub_request(:get, url).to_return File.new "./spec/fixtures/#{type}_#{action}.raw"
+  end
+
   def client
     @client ||= Moysklad::Client.new
   end

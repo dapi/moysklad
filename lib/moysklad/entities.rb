@@ -21,6 +21,8 @@ module Moysklad
       GoodRef
       Base
       CustomerOrder
+      CustomEntity
+      CustomEntityMetadata
       Feature
       AttributeMetadata
       EmbeddedEntityMetadata

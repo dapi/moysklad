@@ -11,16 +11,17 @@ module Moysklad::Entities
     attribute :entityValueUuid, String
 
     # Объект описывающий тип атритуба
-    def attributeMetadata universe
-      universe.metadata.subresource_by_name 'GoodFolder', metadataUuid
+    def metadata universe
+      universe.metadata.subresource_by_name(:GoodFolder).find  metadataUuid
     end
 
     def attributeName universe
-      attributeMetadata(universe).name
+      metadata(universe).name
     end
 
     def get_value universe
-      case attributeMetadata(universe).attrType
+      md = metadata universe
+      case md.attrType
       when 'ID_CUSTOM'
         universe.custom_entities.find( entityValueUuid ).name
       when 'TEXT'
@@ -28,7 +29,7 @@ module Moysklad::Entities
       when 'STRING'
         valueString
       else
-        raise "Не известный тип мета-аттрибута #{attributeMetadata.uuid}: #{attributeMetadata.attrType}"
+        raise "Не известный тип мета-аттрибута #{md.uuid}: #{md.attrType}"
       end
     end
   end

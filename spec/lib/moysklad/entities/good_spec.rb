@@ -28,7 +28,13 @@ describe Moysklad::Entities::Good do
         expect(subject).to be_a Moysklad::Entities::Feature
       end
     end
+  end
 
+  describe 'attribute' do
+    it do
+      expect(good.attributes).to be_a Array
+      expect(good.attributes.first).to be_a Moysklad::Entities::Attribute
+    end
   end
 
 end

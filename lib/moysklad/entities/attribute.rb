@@ -10,6 +10,7 @@ module Moysklad::Entities
 
     attribute :entityValueUuid, String
 
+    # Объект описывающий тип атритуба
     def attributeMetadata universe
       universe.metadata.subresource_by_name 'GoodFolder', metadataUuid
     end

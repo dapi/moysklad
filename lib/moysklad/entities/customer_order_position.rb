@@ -1,6 +1,7 @@
 module Moysklad::Entities
   class CustomerOrderPosition < Base
     include HappyMapper
+    include XmlFix
 
     tag 'customerOrderPosition'
 

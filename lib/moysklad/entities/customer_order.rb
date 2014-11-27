@@ -1,6 +1,7 @@
 module Moysklad::Entities
   class CustomerOrder < Base
     include CommonObject
+    include XmlFix
 
     tag 'customerOrder'
 

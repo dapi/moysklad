@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Moysklad::Entities::CustomEntityMetadata do
-  let(:raw_response) { File.new "./spec/fixtures/CustomEntityMetadata_list.raw" }
-
   before do
     stub_rest :CustomEntityMetadata, :list, 0
     stub_rest :CustomEntity, :list, 0

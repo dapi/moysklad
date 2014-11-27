@@ -10,5 +10,9 @@ module Moysklad::Entities
 
     attribute :entityMetadataUuid,     String 
 
+    def entityMetadata universe
+      universe.custom_entity_metadata.find entityMetadataUuid
+    end
+
   end
 end

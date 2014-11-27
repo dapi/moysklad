@@ -3,14 +3,10 @@ require 'spec_helper'
 describe Moysklad::Entities::Attribute do
   let(:good_uuid) { 'eb77ad57-2e22-11e4-4030-002590a28eca' }
 
-  let(:raw_response) { File.new "./spec/fixtures/Good_#{good_uuid}.raw" }
-  let(:raw_metadata_response) { File.new './spec/fixtures/Metadata_list.raw' }
-  let(:raw_custom_entity_list_response) { File.new './spec/fixtures/CustomEntity_list.raw' }
-
   before do
-    stub_request(:get, "https://online.moysklad.ru/exchange/rest/ms/xml/Good/#{good_uuid}").to_return(raw_response)
-    stub_request(:get, "https://online.moysklad.ru/exchange/rest/ms/xml/Metadata/list?start=0").to_return(raw_metadata_response)
-    stub_request(:get, "https://online.moysklad.ru/exchange/rest/ms/xml/CustomEntity/list?start=0").to_return(raw_custom_entity_list_response)
+    stub_rest :Good, good_uuid
+    stub_rest :Metadata, :list, 0
+    stub_rest :CustomEntity, :list, 0
   end
 
   let(:goods_resource) { Moysklad::Resources::Goods.indexed client: client }
@@ -35,7 +31,6 @@ describe Moysklad::Entities::Attribute do
     it do
       expect(subject.get_value(universe)).to eq "Культ. жемчуг, куб. циркон"
     end
-
   end
 
 end

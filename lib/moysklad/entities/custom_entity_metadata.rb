@@ -4,6 +4,7 @@
 module Moysklad::Entities
   class CustomEntityMetadata < Base
     include CommonObject
+    include XmlFix
 
     tag 'customEntityMetadata'
 

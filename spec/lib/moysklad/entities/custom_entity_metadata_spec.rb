@@ -19,6 +19,10 @@ describe Moysklad::Entities::CustomEntityMetadata do
       expect(subject).to be_a Moysklad::Entities::CustomEntityMetadata
     end
 
+    it 'unicoded xml' do
+      expect(subject.to_xml).to start_with '<?xml version="1.0" encoding="utf-8"?>'
+    end
+
     context 'entities' do
 
       it do

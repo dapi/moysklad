@@ -7,6 +7,10 @@ module Moysklad::Resources
       findWhere uuid: uuid
     end
 
+    def all
+      items
+    end
+
     private
 
     def values

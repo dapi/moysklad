@@ -1,6 +1,7 @@
 module Moysklad::Entities
   class Good < Base
     include CommonObject
+    include Moysklad::Entities::XmlFix
 
     tag 'good'
 

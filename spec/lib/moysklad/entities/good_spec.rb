@@ -30,6 +30,12 @@ describe Moysklad::Entities::Good do
     end
   end
 
+  it 'to_s' do
+    expect(subject.to_s).to be_a String
+    expect(subject.to_s).to include "<?xml"
+    expect(subject.to_s).to include "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+  end
+
   describe 'attribute' do
     it do
       expect(good.attributes).to be_a Array

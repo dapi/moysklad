@@ -8,9 +8,8 @@ module Moysklad::Entities
 
     attribute :archived,    Boolean
 
-    has_many :attribute, Moysklad::Entities::Attribute
-
-    has_many :barcode, Moysklad::Entities::Barcode
+    has_many  :attributes,  Moysklad::Entities::Attribute
+    has_many  :barcodes,    Moysklad::Entities::Barcode
 
   end
 end

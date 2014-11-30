@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customerOrder
+    vatIncluded="true"
+    applicable="true"
+    sourceStoreuuId="existing-store-uuid" 
+    payerVat="true"
+    sourceAgentUuid="existing-counterparty-uuid" 
+    targetAgentUuid="existing-organization-uuid"
+    moment="2011-06-27T06:27:00+04:00"
+    name="0001">
+
+    <uuid>existing-customerorder-uuid</uuid>
+
+    <customerOrderPosition
+        vat="18"
+        goodUuid="existing-good-uuid"
+        quantity="4.0"
+        discount="0.0">
+
+        <uuid>existing-customerorder-position-uuid</uuid>
+
+        <basePrice
+            sumInCurrency="555000.0"
+            sum="555000.0"/>
+ 
+        <reserve>0.0</reserve>
+    </customerOrderPosition>
+</customerOrder>

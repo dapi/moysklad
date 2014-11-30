@@ -10,6 +10,6 @@ module Moysklad::Entities
     end
 
     attribute :sumInCurrency, Float
-    attribute :sum, Float
+    attribute :sum,           Float
   end
 end

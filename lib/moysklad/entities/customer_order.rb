@@ -1,4 +1,7 @@
 module Moysklad::Entities
+  # Пример:
+  # https://support.moysklad.ru/hc/ru/articles/203402923-Пример-загрузки-заказа-покупателя-через-REST-API
+  #
   class CustomerOrder < Base
     include CommonObject
     include XmlFix

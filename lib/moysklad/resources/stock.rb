@@ -20,5 +20,13 @@ module Moysklad::Resources
     def self.pluralized_type
       :stock
     end
+
+    private
+
+    def parse_collection content
+      items = Moysklad::Entities::StockTO.parse content
+      Moysklad::Entities::Page.new items, items.count, 0, items.count
+    end
+
   end
 end

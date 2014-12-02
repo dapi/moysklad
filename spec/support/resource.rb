@@ -30,6 +30,16 @@ module RspecResourceSupport
     stub_request(:get, url).to_return File.new "./spec/fixtures/#{type}_#{action}.raw"
   end
 
+  def stub_stock_rest_with_consignments
+    url = 'https://online.moysklad.ru/exchange/rest/stock/xml?showConsignments=true'
+    stub_request(:get, url).to_return File.new "./spec/fixtures/Stock_showConsignments.raw"
+  end
+
+  def stub_stock_rest
+    url = 'https://online.moysklad.ru/exchange/rest/stock/xml'
+    stub_request(:get, url).to_return File.new "./spec/fixtures/Stock.raw"
+  end
+
   def client
     @client ||= Moysklad::Client.new
   end

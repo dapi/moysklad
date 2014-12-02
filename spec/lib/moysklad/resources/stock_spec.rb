@@ -39,18 +39,25 @@ describe Moysklad::Resources::Stock do
     end
   end
 
-  describe 'collection' do
+  describe 'no consignments' do
+    let(:count) { 516 }
+    subject { resource }
 
     before do
       stub_stock_rest
     end
 
-    subject { resource.collection }
-
     it do
-      expect(subject.count).to eq 516
+      expect(subject.collection.count).to eq count
     end
 
+    it do
+      expect(subject.all.count).to eq count
+    end
+
+    it do
+      expect(subject.all.first).to be_a Moysklad::Entities::StockTO
+    end
   end
 end
 

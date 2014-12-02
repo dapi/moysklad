@@ -5,6 +5,10 @@ module Moysklad::Resources
       list params.merge(showConsignments: true)
     end
 
+    def all
+      collection.items
+    end
+
     def find
       raise 'no such method'
     end

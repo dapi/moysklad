@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Danil Pismenny"]
   spec.email         = ["danil@brandymint.ru"]
   spec.summary       = %q{Клиент для работы с API moysklad.ru}
-  spec.description   = %q{Правильный клиент для работы c xml rest API moyslad.ru, созданный по принципам SOLID}
+  spec.description   = %q{Правильный клиент для работы c REST XML API moyslad.ru, созданный по принципам SOLID}
   spec.homepage      = "https://github.com/brandymint/moysklad"
   spec.license       = "MIT"
 
@@ -17,6 +17,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
+
+  spec.required_ruby_version = '>= 2.0.0'
 
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"

@@ -1,4 +1,4 @@
-# Правильный Ruby-клиент для moysklad.ru
+#  Ruby-клиент для moysklad.ru
 
 [![Build Status](https://travis-ci.org/BrandyMint/moysklad.svg)](https://travis-ci.org/BrandyMint/moysklad)
 

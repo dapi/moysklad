@@ -22,8 +22,7 @@
 Создаем благоприятное окружение для работы с API:
 
 ```ruby
-client = Moysklad::Client.new login:'ВАШ ЛОГИН', password:'ВАШ ПАРОЛЬ'
-universe = Moysklad::Universe.new client: client
+universe = Moysklad::Universe.build login:'ВАШ ЛОГИН', password:'ВАШ ПАРОЛЬ'
 ```
 
 ### Список элементов.

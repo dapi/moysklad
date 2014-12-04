@@ -25,4 +25,20 @@ describe Moysklad::Universe do
     expect(subject.resources_list).to include(:features)
   end
 
+  describe '.build' do
+    let(:login)    { 'alala' }
+    let(:password) { 'ulala' }
+
+    subject { described_class.build login: login, password: password }
+
+    it do
+      expect(subject).to be_a Moysklad::Universe
+    end
+
+    it do
+      expect(subject.client).to be_a Moysklad::Client
+    end
+
+  end
+
 end

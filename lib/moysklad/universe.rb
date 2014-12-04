@@ -1,15 +1,25 @@
 module Moysklad
   class Universe
     cattr_reader :resources_list
+    attr_reader :client
 
-    def class_by_resource resource
-      "Moysklad::Resources::#{resource.to_s.singularize.capitalize}".constantize
-    end
-
+    # @param client[Moysklad::Client]
     def initialize client: nil
       raise "Должен быть client[Moysklad::Client]" unless client.is_a? Moysklad::Client
       @client = client
       @resources={}
+    end
+
+    def self.client_class
+      Client
+    end
+
+    # Ленивое создание universe
+    #
+    # @param login
+    # @param password
+    def self.build login: nil, password: nil
+      new client: client_class.new(login: login, password: password)
     end
 
     @@resources_list = []
@@ -20,10 +30,10 @@ module Moysklad
       end
     end
 
-    private
+    def class_by_resource resource
+      "Moysklad::Resources::#{resource.to_s.singularize.capitalize}".constantize
+    end
 
-    attr_reader :client
-    
   end
 
 end

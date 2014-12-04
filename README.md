@@ -27,7 +27,7 @@ universe = Moysklad::Universe.build login:'ВАШ ЛОГИН', password:'ВАШ 
 
 ### Список элементов.
 
-Например список товаров.
+Например список товаров (`Good`).
 
 ```ruby
 universe.goods.list

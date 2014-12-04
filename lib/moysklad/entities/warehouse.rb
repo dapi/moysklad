@@ -7,7 +7,9 @@ module Moysklad::Entities
 
     attribute :agentUuid,    String
     attribute :archived,     Boolean
-    element   :code,         String
+    attribute :code,         String
+
+    element   :contact,      Contact
+    has_many  :slots,        Slot
   end
 end
-

@@ -15,9 +15,7 @@ if [ -z "$resource" ]; then
   exit 2
 fi
 
-t=MS_TYPE || 'ms'
-
-url="https://online.moysklad.ru/exchange/rest/$type/xml/$1/$2"
+url="https://online.moysklad.ru/exchange/rest/ms/xml/$1/$2"
 
 if [ "$action"=="list" ] && [ -n "$start" ]; then
   url="$url?start=$start"

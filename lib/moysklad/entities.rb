@@ -8,6 +8,8 @@ module Moysklad
     autoload :Common
 
     %w{
+      Slot
+      Contact
       GoodFolder
       Good
       Barcode

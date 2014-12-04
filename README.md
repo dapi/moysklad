@@ -26,8 +26,8 @@
 Создаем благоприятное окружение для работы с API:
 
 ```ruby
-> client = Moysklad::Client.new login:'ВАШ ЛОГИН', password:'ВАШ ПАРОЛЬ'
-> universe = Moysklad::Universe.new client: client
+client = Moysklad::Client.new login:'ВАШ ЛОГИН', password:'ВАШ ПАРОЛЬ'
+universe = Moysklad::Universe.new client: client
 ```
 
 ### Список элементов.
@@ -35,28 +35,29 @@
 Например список товаров.
 
 ```ruby
-> universe.goods.list
-> => [Moysklad::Entities::Good, Moysklad::Entities::Good, ..]
+universe.goods.list
+# => [Moysklad::Entities::Good, Moysklad::Entities::Good, ..]
 ```
 
 Обратите внимание, что список возвращается "как есть" и для работы с ним есть более удобные методы.
 
 Страница товаров:
 
-> page = universe.goods.page
-> => Moysklad::Entities::Page
+```ruby
+page = universe.goods.page
+# => Moysklad::Entities::Page
 
-> page.total
-> => 1280
+page.total
+# => 1280
 
-> page.count
-> => 1000
+page.count
+# => 1000
 
-> page.start
-> => 0
+page.start
+# => 0
 
-> page.items
-> =>[Moysklad::Entities::Good, ..]
+# page.items
+# =>[Moysklad::Entities::Good, ..]
 
 Есть очень удобная возможность автоматически загрузать ВСЕ товары с учетом пейджирования:
 

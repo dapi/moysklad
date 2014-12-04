@@ -48,7 +48,7 @@ describe Moysklad::Resources::Stock do
     end
 
     it do
-      expect(subject.collection.count).to eq count
+      expect(subject.page.count).to eq count
     end
 
     it do

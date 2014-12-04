@@ -1,11 +1,14 @@
 class Moysklad::Resources::Base
   PREFIX_PATH = 'exchange/rest/ms/xml/'
 
-  def self.inherited superclass
+  def self.inherited superclass 
     super
     Moysklad::Resources.register_resource superclass
   end
 
+  # Возвращает этот-же ресурс только индексированный
+  #
+  # @return [Moysklad::Resources::Indexed]
   def self.indexed *args
     Moysklad::Resources::Indexed.new new(*args)
   end
@@ -16,22 +19,47 @@ class Moysklad::Resources::Base
     @client = client
   end
 
+  # Возвращает список элементов как есть
+  #
+  # @return Array[Moysklad::Entities::Base]
   def list params={}
     parse client.get list_path, params
   end
 
-  def collection params={}
-    parse_collection client.get list_path, params
+  # Возвращает страницу со списком элементов
+  #
+  # @return [Moysklad::Entities::Page]
+  def page params={}
+    parse_page client.get list_path, params
   end
 
+  # Забираем элемент по uuid
+  #
+  # @return [Moysklad::Entities::Base]
   def get uuid
     parse client.get item_path uuid
   end
 
-  def create resource
-    parse client.put create_path, prepare_resource(resource)
+  # Модифицируем элемент по uuid
+  #
+  # @return [Moysklad::Entities::Base]
+  def update model
+    create model
   end
 
+  # Создаем запись
+  #
+  # @param [Moysklad::Entities::Base]
+  #
+  # @return [Moysklad::Entities::Base] созданная и возвращенная с сервера сущность
+  def create model
+    raise "Должна быть модель типа Moysklad::Entities::Base" unless model.is_a? Moysklad::Entities::Bae
+    parse client.put create_path, prepare_resource(model)
+  end
+
+  # Удаляем запись по uuid
+  #
+  # @param uuid
   def delete uuid
     client.delete item_path uuid 
   end
@@ -64,7 +92,7 @@ class Moysklad::Resources::Base
     self.class.entity_class.parse content
   end
 
-  def parse_collection content
+  def parse_page content
     col = Moysklad::Entities::Collection.parse content
 
     # TODO Парсится два раза. Оптимизировать. Например сделать динамические CollectionFeature 

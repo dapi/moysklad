@@ -14,16 +14,17 @@ describe Moysklad::Resources::Base do
     end
   end
 
-  describe 'collection' do
+  describe 'page' do
     let(:resource) { Moysklad::Resources::Features.new client: client }
 
     before do
       stub_rest :Feature
     end
 
-    subject { resource.collection }
+    subject { resource.page }
 
     it do
+      expect(subject).to be_a Moysklad::Entities::Page
       expect(subject.total).to eq feature_list_items_count
       expect(subject.count).to eq Moysklad::Entities::Collection::DEFAULT_COUNT
       expect(subject.start).to eq 0

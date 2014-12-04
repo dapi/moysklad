@@ -9,6 +9,8 @@ module Moysklad
 
     %w{
       Slot
+      Uom
+      Country
       Contact
       GoodFolder
       Good

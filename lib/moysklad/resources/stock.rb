@@ -6,7 +6,7 @@ module Moysklad::Resources
     end
 
     def all
-      collection.items
+      page.items
     end
 
     def find
@@ -27,7 +27,7 @@ module Moysklad::Resources
 
     private
 
-    def parse_collection content
+    def parse_page content
       items = Moysklad::Entities::StockTO.parse content
       Moysklad::Entities::Page.new items, items.count, 0, items.count
     end

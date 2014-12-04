@@ -9,18 +9,31 @@ module Moysklad::Resources
       super resource
     end
 
+    # Автоматически подгружает постранично данныез из API и возвращает их все сразу.
+    #
+    # @return Array[Moysklad::Entities::Base]
     def all
       @cached_list || pull_list
     end
 
+    # Возвращает запрашивемую запись из кеша.
+    # Предварительно подгружает все записи через метод `all`
+    #
+    # @return Moyskald::Entities::Base
     def find uuid
       index[uuid]
     end
 
+    # Перечень uuid-ов всех элементов в ресуресе
+    #
+    # @return Array[uuid]
     def uuids
       index.keys
     end
 
+    # Неиндексированный ресурс
+    #
+    # @return Moysklad::Resources::Base
     def resource
       __getobj__
     end
@@ -46,16 +59,16 @@ module Moysklad::Resources
       start = 0
       list = []
 
-      page = nil
+      _page = nil
 
       begin
-        page = collection start: start
-        list += page.items
-        break if page.items.empty?
+        _page = page start: start
+        list += _page.items
+        break if _page.items.empty?
         start = list.count
-      end while start<page.total
+      end while start<_page.total
 
-      raise "При загрузке коллекции в результате колиество не совпадает с total: #{list.count}<>#{page.total}" unless list.count==page.total
+      raise "При загрузке коллекции в результате колиество не совпадает с total: #{list.count}<>#{_page.total}" unless list.count==_page.total
 
       list
     end

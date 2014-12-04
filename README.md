@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/BrandyMint/moysklad.svg)](https://travis-ci.org/BrandyMint/moysklad)
 
-Особенности:
+## Особенности
 
 * Модуль разработан согласно принципам SOLID. Легко расширяем.
 * Спецификации для всех используемых сущностей. Например [Good](blob/master/lib/moysklad/entities/good.rb)

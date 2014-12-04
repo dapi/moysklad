@@ -151,28 +151,28 @@ universe.resources_list
 
 1. Добавляем в фикстуры пример выгрузки из API для тестирования и отладки:
 
-    > MS_LOGON=логин MS_PASSWORD=пароль ./script/rest.sh Country list > ./spec/fixtures/Country_list.raw
+    MS_LOGON=логин MS_PASSWORD=пароль ./script/rest.sh Country list > ./spec/fixtures/Country_list.raw
 
 2. Создаем сущность на основе уже существующей, например good.rb
 
-    > cp ./lib/moysklad/entities/good.rb ./lib/moysklad/entities/country.rb
+    cp ./lib/moysklad/entities/good.rb ./lib/moysklad/entities/country.rb
 
 3. Описываем свойства новой сущности Country.rb в терминах [nokogiri-happymapper](https://github.com/dam5s/happymapper)-а
 
-    > vi ./lib/moysklad/entities/country.rb
+    vi ./lib/moysklad/entities/country.rb
 
 4. Добавляем сущность в requirements
 
-    > vi ./lib/moysklad/entities.rb
+    vi ./lib/moysklad/entities.rb
 
 5. Содаем автоматический ресурс (имя ресурса во множественном числе)
 
-    > vi ./lib/moysklad/resources.rb
+    vi ./lib/moysklad/resources.rb
 
 6. Делаем spec для сущности и для ресурса.
 
-    > vi ./spec/lib/moysklad/resources/countries_spec.rb
-    > vi ./spec/lib/moysklad/entities/country_spec.rb
+    vi ./spec/lib/moysklad/resources/countries_spec.rb
+    vi ./spec/lib/moysklad/entities/country_spec.rb
 
 7. Проверяем что тесты проходят.
 
@@ -180,13 +180,13 @@ universe.resources_list
 
 ## Тестирование
 
-    > bundle exec guard
+    bundle exec guard
 
 ## Полезняшки
 
 Скрипт для быстрого доступа к сервисам моего склада
 
-    > MS_LOGON=логин MS_PASSWORD=пароль ./script/rest.sh Country list > ./spec/fixtures/Country_list.raw
+    MS_LOGON=логин MS_PASSWORD=пароль ./script/rest.sh Country list > ./spec/fixtures/Country_list.raw
 
 ## Ссылочки
 

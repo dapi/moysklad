@@ -67,65 +67,79 @@ page.start
 
 > goods
 > => [Moysklad::Entities::Page]
-
+```
 
 ### Получить конкретный элемент
 
-> universe.goods.get $uuid
-> => [Moysklad::Entities::Good]
-
+```ruby
+universe.goods.get $uuid
+# => [Moysklad::Entities::Good]
+```
 
 ### Создаем элемент
 
 Например загрузка заказа покупателя:
 
-> co = Moysklad::Entities::CustomerOrder.new
-> co.vatIncluded = true
-> co.applicable  = true
-> co.customerOrderPosition = [Moysklad::Entities::CustomerOrderPosition.new]
->
-> created_order = universe.customer_orders.create co
-> => [Moysklad::Entities::Good]
-> created_order.uuid
-> => uuid нового заказа
+```
+co = Moysklad::Entities::CustomerOrder.new
+co.vatIncluded = true
+co.applicable  = true
+[...]
+co.customerOrderPosition = [Moysklad::Entities::CustomerOrderPosition.new]
+
+created_order = universe.customer_orders.create co
+# => [Moysklad::Entities::Good]
+
+created_order.uuid
+# => uuid нового заказа
+```
 
 ### Удаляем элемент
 
-> universe.goods.delete $uuid
+```ruby
+universe.goods.delete $uuid
+```
 
-### Кеширование
+### Кеширование и предзагрузка
 
 Одной из главных возможностей данного модуля является возможность работать с API как с базой данных,
 не выполняя запрос по получению каждого товара по-отдельности, и выдавать данные их кеша.
 
 Класический способ получить данные по товару делает GET запрос каждый раз:
 
-> > universe.goods.get $uuid
-> => Client: GET exchange/rest/ms/xml/Good/f24937e7-7ba1-11e4-90a2-8ecb000abf12 {}
-> => [Moysklad::Entities::Good]
+```ruby
+universe.goods.get $uuid
+# => Client: GET exchange/rest/ms/xml/Good/f24937e7-7ba1-11e4-90a2-8ecb000abf12 {}
+# => [Moysklad::Entities::Good]
+```
 
 Продвинутый способ вытаскивает все данные сразу и в дальнейшем берет обьекты из кеша:
 
-> > universe.goods.find $uuid
-> => Client: GET exchange/rest/ms/xml/Good/list {:start=>0}
-> => Client: GET exchange/rest/ms/xml/Good/list {:start=>1000}
-> => [Moysklad::Entities::Good]
+```ruby
+> universe.goods.find $uuid
+# => Client: GET exchange/rest/ms/xml/Good/list {:start=>0}
+# => Client: GET exchange/rest/ms/xml/Good/list {:start=>1000}
+# => [Moysklad::Entities::Good]
+```
 
 И в следующий раз API уже не дергается:
 
-> > universe.goods.find $another_uuid
-> => [Moysklad::Entities::Good]
+```ruby
+universe.goods.find $another_uuid
+# => [Moysklad::Entities::Good]
+```
 
 Это позволяет экономить на прямых запросах к API и избавляет нас от блокирования моимскладом по ограничению количества запросов за еденицу времени.
 
 
 ### Список доступных ресутсов:
 
-> universe.resources_list
-> => [:stock, :metadata, :custom_entity_metadata, :goods, :good_folders, :uoms, :countries,
+```ruby
+universe.resources_list
+# => [:stock, :metadata, :custom_entity_metadata, :goods, :good_folders, :uoms, :countries,
       :features, :custom_entities, :customer_orders, :warehouses, :companies,
       :consignments, :my_companies]
-
+```
 
 ## Pull Requests
 
@@ -133,8 +147,7 @@ page.start
 
 Если в API моего склада есть справочник, который еще не добавлен в этот модуль, можете сделать это сами следующим образом.
 
-Например добавляем Country.
-
+Например добавляем `Country`.
 
 1. Добавляем в фикстуры пример выгрузки из API для тестирования и отладки:
 

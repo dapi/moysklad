@@ -170,12 +170,10 @@ universe.resources_list
     vi ./lib/moysklad/resources.rb
 
 6. Делаем spec для сущности и для ресурса.
-
 ```shell
     > vi ./spec/lib/moysklad/resources/countries_spec.rb
     > vi ./spec/lib/moysklad/entities/country_spec.rb
 ```
-
 7. Проверяем что тесты проходят.
 
 8. Присылаем Pull Request

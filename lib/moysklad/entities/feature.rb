@@ -11,5 +11,10 @@ module Moysklad::Entities
     has_many  :attributes,  Moysklad::Entities::Attribute
     has_many  :barcodes,    Moysklad::Entities::Barcode
 
+    def good universe
+      cache :good, universe do
+        universe.good.find goodUuid
+      end
+    end
   end
 end

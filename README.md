@@ -133,6 +133,22 @@ universe.goods.find $another_uuid
 Это позволяет экономить на прямых запросах к API и избавляет нас от блокирования моимскладом по ограничению количества запросов за еденицу времени.
 
 
+## Поиск по фильтру
+
+Возвращает список элементов отображенных по фильтру:
+
+```ruby
+universe.features.where goodUuid: uuid
+# => [Moysklad::Enities::Feature, Moysklad::Enities::Feature]
+```
+
+Тоже самое, только возвращается первый элемент или nil:
+
+```ruby
+universe.features.findWhere goodUuid: uuid
+# => [Moysklad::Enities::Feature]
+```
+
 ### Список доступных ресурсов:
 
 ```ruby
@@ -141,6 +157,72 @@ universe.resources_list
       :features, :custom_entities, :customer_orders, :warehouses, :companies,
       :consignments, :my_companies]
 ```
+
+## Справочники и подресурсы
+
+Доступ к Мойсклад устроен так, что некоторые справочники запрятаны в одной коллекции.
+Например если вы хотите получить все виды свойств товаров, то это можно сделать следующим образом.
+
+```ruby
+universe.metadata.subresource_by_name(:GoodFolder).all
+# => [Moysklad::Entities::AttributeMetadata, Moysklad::Entities::AttributeMetadata]
+```
+
+Или получить конкретное свойство:
+
+```ruby
+universe.metadata.subresource_by_name(:GoodFolder).find uuid
+# => Moysklad::Entities::AttributeMetadata
+```
+
+## Автоматическая обработка ассоциаций (отношения)
+
+Нравятся `belongs_to` и `has_many` в рельсах? Тут есть почти тоже самое.
+
+```ruby
+feature = universe.features.find uuid
+feature.good
+# Client: GET exchange/rest/ms/xml/Good/f24937e7-7ba1-11e4-90a2-8ecb000abf12 {}
+# => [Moysklad::Entities::Good]
+```
+
+Пример как получить все данные по товару, включая модификации, свойства и их характеристики:
+
+```ruby
+good = universe.goods.find uuid
+# Client: GET exchange/rest/ms/xml/Good/f24937e7-7ba1-11e4-90a2-8ecb000abf12 {}
+
+good.features universe
+# Client: GET exchange/rest/ms/xml/Feature/list {}
+# => [Moysklad::Entities::Feature, ..]
+
+attribute = good.attributes.first
+# => [Moysklad::Entities::Attribute, ..]
+
+attribute.is_dictionary?
+# => true
+
+# Получаем вид свойства:
+
+attribute.metadata universe
+# Client: GET exchange/rest/ms/xml/Metadata/list {}
+# => [Moysklad::Entities::AttributeMetadata]
+
+# Получаем описание пользовательского справочника к которому принадлежит свойства
+
+dictionary = attribute.metadata(universe).dictionatyMetadata(universe)
+# Client: GET exchange/rest/ms/xml/CustomEntityMetadata/uuid {}
+# => [Moysklad::Entities::CustomEntityMetadata]
+
+
+# Значения всех элементов пользовательского справочника:
+
+dictionary.entities(universe)
+# => [Moysklad::Entities::CustomEntity, ...]
+
+```
+
+Подробнее смотри в исходниках сущностей.
 
 ## Pull Requests
 

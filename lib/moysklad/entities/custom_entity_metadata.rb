@@ -1,6 +1,7 @@
 # https://online.moysklad.ru/exchange/rest/ms/xml/CustomEntityMetadata/list
 #
-# Пользовательские справочники
+# Пользовательский справочник
+#
 module Moysklad::Entities
   class CustomEntityMetadata < Base
     include CommonObject

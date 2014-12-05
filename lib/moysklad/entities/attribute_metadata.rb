@@ -15,10 +15,21 @@ module Moysklad::Entities
     attribute :required,            Boolean
     attribute :dictionaryMetadataUuid, String
 
+    def is_dictionary?
+      attrType == 'ID_CUSTOM'
+    end
+
+    # Если это свойство типа ID_CUSTOM, то возвращается пользовательский справочник
+    #
+    # @return Moysklad::Entities::CustomEntityMetadata
     def dictionatyMetadata universe
+      raise "Это свойства не типа справочник" unless dictionaryMetadataUuid
       universe.custom_entity_metadata.find dictionaryMetadataUuid
     end
 
+    # Справочник к которому принадлежит это ссвойство
+    #
+    # @return Moysklad::Entities::EmbeddedEntityMetadata
     def entityMetadata universe
       universe.metadata.find entityMetadataUuid
     end

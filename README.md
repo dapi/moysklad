@@ -5,11 +5,14 @@
 ## Особенности
 
 * Модуль разработан согласно принципам SOLID. Легко расширяем.
-* Спецификации для всех используемых сущностей. Например [Good](lib/moysklad/entities/good.rb)
-* Удобный доступ ко всем действиям с ресурсами (Create, Read, Update, Delete, List).
+* Все используемые сущности описаны и структурированы. Например [Good](lib/moysklad/entities/good.rb)
+* Любые действия с ресурсами (Create, Read, Update, Delete, List).
+* Виртуальные действия с ресурсами (`where`, `findWhere`)
 * _Кеширование и предзагрузка_ ресурса со всеми записями (используем ресурс как локальную базу)
-* Понятные исключения при ошибках с сетью.
-* Работа с нескольмими аккаунтами склада одновременно (отсуствие глобальных переменных).
+* Работа с нескольмими аккаунтами на склада одновременно (отсуствие глобальных переменных).
+* Удобная работа с подресурсами (например справочником свойств товара)
+* _Ассоциации_ между сущностями автоматически получают данные по API (`good.features`).
+* [Client](lib/moysklad/client.rb) для прямого обращения к API в случае крайней необходимости.
 
 ## Установка
 
@@ -201,25 +204,29 @@ attribute = good.attributes.first
 
 attribute.is_dictionary?
 # => true
+```
 
-# Получаем вид свойства:
+Получаем вид свойства:
 
+```ruby
 attribute.metadata universe
 # Client: GET exchange/rest/ms/xml/Metadata/list {}
 # => [Moysklad::Entities::AttributeMetadata]
+```
 
-# Получаем описание пользовательского справочника к которому принадлежит свойства
+Получаем описание пользовательского справочника к которому принадлежит свойства
 
+```ruby
 dictionary = attribute.metadata(universe).dictionatyMetadata(universe)
 # Client: GET exchange/rest/ms/xml/CustomEntityMetadata/uuid {}
 # => [Moysklad::Entities::CustomEntityMetadata]
+```
 
+Значения всех элементов пользовательского справочника:
 
-# Значения всех элементов пользовательского справочника:
-
+```ruby
 dictionary.entities(universe)
 # => [Moysklad::Entities::CustomEntity, ...]
-
 ```
 
 Подробнее смотри в исходниках сущностей.

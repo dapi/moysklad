@@ -88,7 +88,7 @@ universe.goods.get $uuid
 
 Например загрузка заказа покупателя:
 
-```
+```ruby
 co = Moysklad::Entities::CustomerOrder.new
 co.vatIncluded = true
 co.applicable  = true

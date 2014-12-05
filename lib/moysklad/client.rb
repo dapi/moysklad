@@ -1,3 +1,5 @@
+require 'faraday'
+
 require_relative 'client/errors'
 
 class Moysklad::Client

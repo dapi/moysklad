@@ -1,6 +1,7 @@
 require 'happymapper'
 require 'active_support'
 require "moysklad/version"
+
 require 'logger'
 
 module Moysklad

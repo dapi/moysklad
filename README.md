@@ -1,4 +1,4 @@
-#  Ruby-клиент к REST XML API у moysklad.ru
+#  Ruby-клиент для REST XML API Moysklad
 
 [![Build Status](https://travis-ci.org/BrandyMint/moysklad.svg)](https://travis-ci.org/BrandyMint/moysklad)
 

@@ -11,7 +11,7 @@ module Moysklad::Resources
 
     # Автоматически подгружает постранично данныез из API и возвращает их все сразу.
     #
-    # @return Array[Moysklad::Entities::Base]
+    # @return [Array of Moysklad::Entities::Base]
     def all
       @cached_list || pull_list
     end
@@ -26,7 +26,7 @@ module Moysklad::Resources
 
     # Перечень uuid-ов всех элементов в ресуресе
     #
-    # @return Array[uuid]
+    # @return [Array of uuids]
     def uuids
       index.keys
     end

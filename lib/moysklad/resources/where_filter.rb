@@ -4,7 +4,8 @@ module Moysklad::Resources::WhereFilter
   # Например:
   # > universe.features.where goodUuid: uuid
   #
-  # @return Array[Moysklad::Entities::Base]
+  # @return [Array of Moysklad::Entities::Base]
+  #
   def where filter
     values.select { |v| filtered? v, filter }
   end

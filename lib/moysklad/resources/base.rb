@@ -21,7 +21,7 @@ class Moysklad::Resources::Base
 
   # Возвращает список элементов как есть
   #
-  # @return Array[Moysklad::Entities::Base]
+  # @return [Array of Moysklad::Entities::Base]
   def list params={}
     parse client.get list_path, params
   end
@@ -51,7 +51,9 @@ class Moysklad::Resources::Base
   #
   # @param [Moysklad::Entities::Base]
   #
-  # @return [Moysklad::Entities::Base] созданная и возвращенная с сервера сущность
+  # Возвращается созданная на сервере сущность
+  #
+  # @return [Moysklad::Entities::Base]
   def create model
     raise "Должна быть модель типа Moysklad::Entities::Base" unless model.is_a? Moysklad::Entities::Base
     parse client.put create_path, prepare_resource(model)

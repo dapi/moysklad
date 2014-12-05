@@ -1,6 +1,10 @@
 #  Ruby-клиент для REST XML API Moysklad
 
 [![Build Status](https://travis-ci.org/BrandyMint/moysklad.svg)](https://travis-ci.org/BrandyMint/moysklad)
+[![Dependency Status](https://www.versioneye.com/user/projects/548225818674a4b5b90004dd/badge.svg?style=flat)](https://www.versioneye.com/user/projects/548225818674a4b5b90004dd)
+[![Code Climate](https://codeclimate.com/github/BrandyMint/moysklad/badges/gpa.svg)](https://codeclimate.com/github/BrandyMint/moysklad)
+
+* http://www.rubydoc.info/gems/moysklad
 
 ## Особенности
 
@@ -284,3 +288,7 @@ dictionary.entities(universe)
 * Документация для разработчииков https://support.moysklad.ru/hc/ru/sections/200561443-Разработчикам
 
 ## Присылайте пул-реквесты )
+
+## Авторство
+
+* Данил Письменный (brandymint.ru)

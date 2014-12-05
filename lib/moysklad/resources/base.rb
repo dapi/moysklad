@@ -53,7 +53,7 @@ class Moysklad::Resources::Base
   #
   # @return [Moysklad::Entities::Base] созданная и возвращенная с сервера сущность
   def create model
-    raise "Должна быть модель типа Moysklad::Entities::Base" unless model.is_a? Moysklad::Entities::Bae
+    raise "Должна быть модель типа Moysklad::Entities::Base" unless model.is_a? Moysklad::Entities::Base
     parse client.put create_path, prepare_resource(model)
   end
 

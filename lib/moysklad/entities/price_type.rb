@@ -2,6 +2,7 @@ module Moysklad::Entities
   class PriceType < Base
     include CommonObject
     include Moysklad::Entities::XmlFix
+    tag 'priceType'
 
     attribute :updated,     Time
     attribute :updatedBy,   String

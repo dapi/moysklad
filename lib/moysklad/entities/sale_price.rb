@@ -9,8 +9,8 @@ module Moysklad::Entities
     attribute :priceTypeUuid, String
     attribute :value, Float
 
-    def price_type universe
-      cache :price_type, universe do
+    def priceType universe
+      cache :priceType, universe do
         universe.price_types.find priceTypeUuid
       end
     end

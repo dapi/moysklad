@@ -31,6 +31,7 @@ module Moysklad
       AttributeMetadata
       EmbeddedEntityMetadata
       Price
+      PriceType
       StockTO
       Company
       Warehouse

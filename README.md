@@ -245,7 +245,7 @@ dictionary.entities(universe)
 
 1. Добавляем в фикстуры пример выгрузки из API для тестирования и отладки:
 
-    MS_LOGON=логин MS_PASSWORD=пароль ./script/rest.sh Country list > ./spec/fixtures/Country_list.raw
+    MS_LOGON=логин MS_PASSWORD=пароль ./scripts/rest.sh Country list > ./spec/fixtures/Country_list.raw
 
 2. Создаем сущность на основе уже существующей, например good.rb
 

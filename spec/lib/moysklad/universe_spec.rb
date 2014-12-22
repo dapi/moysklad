@@ -14,7 +14,7 @@ describe Moysklad::Universe do
   end
 
   it do
-    expect(subject.metadata.resource).to be_a Moysklad::Resources::Metadata
+    expect(subject.embedded_entity_metadata.resource).to be_a Moysklad::Resources::EmbeddedEntityMetadata
   end
 
   it do 

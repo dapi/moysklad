@@ -1,19 +1,19 @@
 module Moysklad::Resources
-  class Metadata < Base
+  class EmbeddedEntityMetadata < Base
     def self.entity_class
       Moysklad::Entities::EmbeddedEntityMetadata
     end
 
     def self.type
-      'Metadata'
+      'EmbeddedEntityMetadata'
     end
 
     def self.pluralized_type
-      :metadata
+      :embedded_entity_metadata
     end
 
     def self.indexed *args
-      Moysklad::Resources::MetadataIndexed.new new(*args)
+      Moysklad::Resources::EmbeddedEntityMetadataIndexed.new new(*args)
     end
 
   end

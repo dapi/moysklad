@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe Moysklad::Entities::AttributeMetadata do
-  let(:metadata_resource) { Moysklad::Resources::Metadata.indexed client: client }
+  let(:metadata_resource) { Moysklad::Resources::EmbeddedEntityMetadata.indexed client: client }
   let(:subresource) {  metadata_resource.subresource_by_name :GoodFolder }
   let(:attribute_metadata) { subresource.items.first }
 
   before do
-    stub_rest :Metadata, :list, 0
+    stub_rest :EmbeddedEntityMetadata, :list, 0
     stub_rest :CustomEntityMetadata, :list, 0
   end
 

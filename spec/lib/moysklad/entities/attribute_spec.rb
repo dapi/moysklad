@@ -5,7 +5,7 @@ describe Moysklad::Entities::Attribute do
 
   before do
     stub_rest :Good, good_uuid
-    stub_rest :Metadata, :list, 0
+    stub_rest :EmbeddedEntityMetadata, :list, 0
     stub_rest :CustomEntity, :list, 0
   end
 

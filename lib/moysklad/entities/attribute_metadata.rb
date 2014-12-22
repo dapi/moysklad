@@ -31,7 +31,7 @@ module Moysklad::Entities
     #
     # @return Moysklad::Entities::EmbeddedEntityMetadata
     def entityMetadata universe
-      universe.metadata.find entityMetadataUuid
+      universe.embedded_entity_metadata.find entityMetadataUuid
     end
 
   end

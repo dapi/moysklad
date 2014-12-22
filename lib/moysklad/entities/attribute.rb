@@ -15,7 +15,7 @@ module Moysklad::Entities
     # @return Moysklad::Entities::AttributeMetadata
     #
     def metadata universe
-      universe.metadata.subresource_by_name(:GoodFolder).find metadataUuid
+      universe.embedded_entity_metadata.subresource_by_name(:GoodFolder).find metadataUuid
     end
 
     # Название свойства, полученное из AttributeMetadata

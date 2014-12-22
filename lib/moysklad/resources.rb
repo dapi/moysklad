@@ -11,9 +11,9 @@ module Moysklad::Resources
   require_relative 'resources/base'
   require_relative 'resources/indexed'
   require_relative 'resources/stock'
-  require_relative 'resources/metadata'
+  require_relative 'resources/embedded_entity_metadata'
+  require_relative 'resources/embedded_entity_metadata_indexed'
   require_relative 'resources/custom_entity_metadata'
-  require_relative 'resources/metadata_indexed'
   require_relative 'resources/subresource'
 
   # Простые ресурсы, которые создаются автоматически

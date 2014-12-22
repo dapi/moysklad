@@ -160,7 +160,7 @@ universe.features.findWhere goodUuid: uuid
 
 ```ruby
 universe.resources_list
-# => [:stock, :metadata, :custom_entity_metadata, :goods, :good_folders, :uoms, :countries,
+# => [:stock, :embedded_entity_metadata, :custom_entity_metadata, :goods, :good_folders, :uoms, :countries,
       :features, :custom_entities, :customer_orders, :warehouses, :companies,
       :consignments, :my_companies]
 ```
@@ -171,14 +171,14 @@ universe.resources_list
 Например если вы хотите получить все виды свойств товаров, то это можно сделать следующим образом.
 
 ```ruby
-universe.metadata.subresource_by_name(:GoodFolder).all
+universe.embedded_entity_metadata.subresource_by_name(:GoodFolder).all
 # => [Moysklad::Entities::AttributeMetadata, Moysklad::Entities::AttributeMetadata]
 ```
 
 Или получить конкретное свойство:
 
 ```ruby
-universe.metadata.subresource_by_name(:GoodFolder).find uuid
+universe.embedded_entity_metadata.subresource_by_name(:GoodFolder).find uuid
 # => Moysklad::Entities::AttributeMetadata
 ```
 
@@ -213,7 +213,7 @@ attribute.is_dictionary?
 Получаем вид свойства:
 
 ```ruby
-attribute.metadata universe
+attribute.embedded_entity_metadata universe
 # Client: GET exchange/rest/ms/xml/Metadata/list {}
 # => [Moysklad::Entities::AttributeMetadata]
 ```
@@ -221,7 +221,7 @@ attribute.metadata universe
 Получаем описание пользовательского справочника к которому принадлежит свойства
 
 ```ruby
-dictionary = attribute.metadata(universe).dictionatyMetadata(universe)
+dictionary = attribute.embedded_entity_metadata(universe).dictionatyMetadata(universe)
 # Client: GET exchange/rest/ms/xml/CustomEntityMetadata/uuid {}
 # => [Moysklad::Entities::CustomEntityMetadata]
 ```

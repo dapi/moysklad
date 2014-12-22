@@ -1,3 +1,8 @@
+## 0.2.0 / 2014-12-20
+
+* Добавил сущность PriceType и ресурс price_types
+* Переименовал Metadata в EmbeddedEntityMetadata
+
 ## 0.1.5 / 2014-12-05
 
 * Больше документации.

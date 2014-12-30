@@ -50,6 +50,7 @@ class Moysklad::Client
       doc = Nokogiri::HTML body
       # у ResourceForbidden есть <u>
       # у wrong_password <u> несколько
+      # Можно ошибку разбирать более грамотно по свойствам type, message, description: http://i.gyazo.com/e9d5d08bd610882d87f39d9002cdf25a.png
       [doc.css('body').css('h1').text,doc.css('body').css('u').first.text].join('; ')
     rescue => err
       Moysklad.logger.debug "Moyskad::Client parse error #{err}: #{res.body}"

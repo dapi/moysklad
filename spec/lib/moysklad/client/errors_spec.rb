@@ -53,6 +53,16 @@ describe Moysklad::Client::Errors do
     end
 
     describe 'encoding' do
+      context 'forbidden' do
+        let(:file) { 'resource_forbidden' }
+
+        subject do
+          Moysklad::Client::ResourceForbidden.new result
+        end
+
+        it { expect(subject.message).to eq '[403] JBWEB000065: HTTP Status 403 - ; JBWEB000123: Access to the specified resource has been forbidden.' }
+        it { expect(subject.message.encoding).to eq Encoding::UTF_8 }
+      end
       context 'wront_type' do
         let(:file) { 'wrong_type' }
 
@@ -70,7 +80,7 @@ describe Moysklad::Client::Errors do
           Moysklad::Client::UnauthorizedError.new result
         end
 
-        it { expect(subject.message).to eq '[401] JBWEB000065: HTTP Status 401 - Неправильный пароль или имя пользователя; Неправильный пароль или имя пользователя' }
+        it { expect(subject.message).to eq '[401] JBWEB000065: HTTP Status 401 - Неправильный пароль или имя пользователя; JBWEB000121: This request requires HTTP authentication.' }
         it { expect(subject.message.encoding).to eq Encoding::UTF_8 }
       end
     end

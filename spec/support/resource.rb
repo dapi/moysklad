@@ -24,10 +24,10 @@ module RspecResourceSupport
     863
   end
 
-  def stub_rest type, action=:list, start=nil
+  def stub_rest type, action=:list, start=nil, file=nil
     url = "https://online.moysklad.ru/exchange/rest/ms/xml/#{type}/#{action}" 
     url << "?start=#{start}" if start
-    stub_request(:get, url).to_return File.new "./spec/fixtures/#{type}_#{action}.raw"
+    stub_request(:get, url).to_return File.new( file || "./spec/fixtures/#{type}_#{action}.raw" )
   end
 
   def stub_stock_rest_with_consignments

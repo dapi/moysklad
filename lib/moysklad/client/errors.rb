@@ -4,18 +4,20 @@ class Moysklad::Client
       Moysklad.logger.warn "Moyskad::Client: #{res.status}: #{res.env.url.to_s}\n#{res.body}"
 
       case res.status
-      when 405
-        raise MethodNotAllowedError.new res
       when 401 
         raise UnauthorizedError.new res
+      when 403
+        raise ResourceForbidden.new res
       when 404 
         raise NoResourceFound.new res.body
+      when 405
+        raise MethodNotAllowedError.new res
       when 500
-        raise ParsedError.new(res)
+        raise ParsedError.new res
       when 502
-        raise HtmlParsedError.new(res)
+        raise HtmlParsedError.new res
       else 
-        raise ParsedError.new(res)
+        raise ParsedError.new res
       end
     end
   end
@@ -46,7 +48,9 @@ class Moysklad::Client
 
     def parse_title body
       doc = Nokogiri::HTML body
-      doc.css('body').css('h1').text
+      # у ResourceForbidden есть <u>
+      # у wrong_password <u> несколько
+      [doc.css('body').css('h1').text,doc.css('body').css('u').first.text].join('; ')
     rescue => err
       Moysklad.logger.debug "Moyskad::Client parse error #{err}: #{res.body}"
       body
@@ -59,11 +63,18 @@ class Moysklad::Client
   class UnauthorizedError < HtmlParsedError
   end
 
+  class ResourceForbidden < HtmlParsedError
+  end
+
   class ParsedError < Error
     def initialize result
       @status = result.status
       @result = result
-      @error = Moysklad::Entities::Error.parse result.body
+      if result.headers['content-type']=="application/xml"
+        @error = Moysklad::Entities::Error.parse result.body
+      else
+        raise "Unknown content-type #{result.headers['content-type']} to parse error #{result.body}"
+      end
       @message = @error.message
     rescue => err
       @message = "error in init #{err}: #{result.body}"

@@ -41,4 +41,13 @@ describe Moysklad::Universe do
 
   end
 
+  describe do
+    before do
+      stub_rest :CustomEntityMetadata, :list, 0, './spec/fixtures/resource_forbidden.raw'
+    end
+    it do
+      expect{subject.custom_entity_metadata.all}.to raise_error Moysklad::Client::ResourceForbidden
+    end
+  end
+
 end

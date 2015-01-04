@@ -23,6 +23,18 @@ describe Moysklad::Client::Errors do
       stub_request(:get, url).to_return File.new( './spec/fixtures/' + file + '.raw' )
     end
 
+    context 'bad gateway' do
+      let(:file) { '502' }
+      let(:error) { Moysklad::Client::BadGatewayError }
+      it { expect{subject}.to raise_error error }
+    end
+
+    context 'internal server error' do
+      let(:file) { '500' }
+      let(:error) { Moysklad::Client::InternalServerError }
+      it { expect{subject}.to raise_error error }
+    end
+
     context 'wrong_user' do
       let(:file) { 'wrong_user' }
 

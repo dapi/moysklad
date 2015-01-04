@@ -13,9 +13,9 @@ class Moysklad::Client
       when 405
         raise MethodNotAllowedError.new res
       when 500
-        raise ParsedError.new res
+        raise InternalServerError.new res
       when 502
-        raise HtmlParsedError.new res
+        raise BadGatewayError.new res
       else 
         raise ParsedError.new res
       end
@@ -71,16 +71,25 @@ class Moysklad::Client
     def initialize result
       @status = result.status
       @result = result
-      if result.headers['content-type']=="application/xml"
+      case result.headers['content-type']
+        
+      when /application\/xml/
         @error = Moysklad::Entities::Error.parse result.body
+        @message = @error.message
+      when /text\/html/
+        doc = Nokogiri::HTML body
+        @message = doc.css('body').css('h1').text
       else
         raise "Unknown content-type #{result.headers['content-type']} to parse error #{result.body}"
       end
-      @message = @error.message
     rescue => err
       @message = "error in init #{err}: #{result.body}"
     end
 
     attr_reader :error
   end
+
+
+  class BadGatewayError < HtmlParsedError; end
+  class InternalServerError < ParsedError; end
 end

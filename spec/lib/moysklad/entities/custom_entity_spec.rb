@@ -32,4 +32,3 @@ describe Moysklad::Entities::CustomEntity do
 
   end
 end
-

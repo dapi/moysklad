@@ -91,11 +91,15 @@ class Moysklad::Resources::Base
   end
 
   def parse content
-    self.class.entity_class.parse content
+    self.class.entity_class.parse parse_content content
+  end
+
+  def parse_content content
+    Nokogiri::XML content
   end
 
   def parse_page content
-    col = Moysklad::Entities::Collection.parse content
+    col = Moysklad::Entities::Collection.parse parse_content content
 
     # TODO Парсится два раза. Оптимизировать. Например сделать динамические CollectionFeature 
     # и парсить через них

@@ -9,6 +9,7 @@ require 'faraday'
 # https://github.com/vcr/vcr
 require 'webmock/rspec'
 require 'rspec/collection_matchers'
+require 'pry'
 
 Moysklad.logger = Logger.new '/dev/null'
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f}

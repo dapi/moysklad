@@ -286,6 +286,8 @@ dictionary.entities(universe)
 
 * Картапамяти по API http://www.mindmeister.com/246618635/online-moysklad-ru
 * Документация для разработчииков https://support.moysklad.ru/hc/ru/sections/200561443-Разработчикам
+* Неплохая схема API в json https://gist.github.com/dapi/22a0790db19a4ff51a37
+* Хороший клиент на JavaScript/nodejs https://github.com/wmakeev/moysklad-client
 
 ## Присылайте пул-реквесты )
 

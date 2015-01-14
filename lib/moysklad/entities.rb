@@ -8,6 +8,7 @@ module Moysklad
     autoload :Common
 
     %w{
+      AttachmentDocument
       Slot
       Uom
       Country

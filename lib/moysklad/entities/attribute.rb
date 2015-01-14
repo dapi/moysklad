@@ -4,9 +4,23 @@ module Moysklad::Entities
 
     tag 'attribute'
 
+    # 
     attribute :metadataUuid,    String
     attribute :valueString,     String
     attribute :valueText,       String
+    attribute :doubleValue,     Float
+    attribute :longValue,       Integer
+    attribute :booleanValue,    Boolean
+
+    attribute :agentValueUuid, String
+    attribute :goodValueUuid, String
+    attribute :placeValueUuid, String
+    attribute :consignmentValueUuid, String
+    attribute :employeeValueUuid, String
+    attribute :projectValueUuid, String
+    attribute :contractValueUuid, String
+
+    attribute :file, Moysklad::Entities::AttachmentDocument
 
     attribute :entityValueUuid, String
 

@@ -11,6 +11,7 @@ module Moysklad::Entities
     attribute :doubleValue,     Float
     attribute :longValue,       Integer
     attribute :booleanValue,    Boolean
+    attribute :timeValue,       String
 
     attribute :agentValueUuid, String
     attribute :goodValueUuid, String

@@ -48,6 +48,8 @@ module Moysklad::Entities
       case md.attrType
       when 'ID_CUSTOM'
         universe.custom_entities.find( entityValueUuid ).name
+      when 'LINK'
+        valueText
       when 'TEXT'
         valueText
       when 'STRING'

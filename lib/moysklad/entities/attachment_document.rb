@@ -1,5 +1,8 @@
 module Moysklad::Entities
-  class AttachmentDocument
+  class AttachmentDocument < Base
+    include Moysklad::Entities::Common
+
+    tag 'file'
 
     attribute :filename,       String
     attribute :miniatureUuid,  String

@@ -56,6 +56,10 @@ module Moysklad::Entities
         doubleValue
       when 'LONG'
         longValue
+      when 'TIME'
+        timeValue
+      when 'FILE'
+        file
       else
         raise "Не известный тип мета-аттрибута #{md.uuid}: #{md.attrType}"
       end

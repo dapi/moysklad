@@ -1,9 +1,13 @@
 module Moysklad::Entities
   class AttachmentDocument
 
-    def self.parse node, options
-      # TODO create AttachmentDocument
-      ''
-    end
+    attribute :filename,       String
+    attribute :miniatureUuid,  String
+    attribute :name,           String
+
+    #def self.parse node, options
+      ## TODO create AttachmentDocument
+      #''
+    #end
   end
 end

@@ -52,7 +52,10 @@ module Moysklad::Entities
         valueText
       when 'STRING'
         valueString
-        # TODO Другие типы
+      when 'DOUBLE'
+        doubleValue
+      when 'LONG'
+        longValue
       else
         raise "Не известный тип мета-аттрибута #{md.uuid}: #{md.attrType}"
       end

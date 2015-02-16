@@ -1,7 +1,13 @@
 class Moysklad::Client
   class Errors
     def self.build res
-      Moysklad.logger.warn "Moyskad::Client: #{res.status}: #{res.env.url.to_s}\n#{res.body}"
+      # Encoding::UndefinedConversionError
+      # "\xD0" from ASCII-8BIT to UTF-8
+      begin
+        body = res.status==401 ? res.body.force_encoding('utf-8') : res.body
+        Moysklad.logger.warn "Moyskad::Client: #{res.status}: #{res.env.url.to_s}\n#{body}"
+      rescue Encoding::UndefinedConversionError
+      end
 
       case res.status
       when 401 

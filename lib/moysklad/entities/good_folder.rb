@@ -5,5 +5,6 @@ module Moysklad::Entities
     tag 'goodFolder'
 
     attribute :productCode,   String
+    attribute :parentUuid,    String
   end
 end

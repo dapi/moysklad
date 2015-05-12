@@ -7,6 +7,9 @@ module Moysklad::Entities
     attribute :goodUuid,    String
 
     attribute :archived,    Boolean
+    attribute :isDefault,   Boolean
+
+    element   :shared,      Boolean
 
     has_many  :attributes,  Moysklad::Entities::Attribute
     has_many  :barcodes,    Moysklad::Entities::Barcode

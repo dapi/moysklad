@@ -10,11 +10,11 @@ class Moysklad::Client
       end
 
       case res.status
-      when 401 
+      when 401
         raise UnauthorizedError.new res
       when 403
         raise ResourceForbidden.new res
-      when 404 
+      when 404
         raise NoResourceFound.new res.body
       when 405
         raise MethodNotAllowedError.new res
@@ -22,7 +22,7 @@ class Moysklad::Client
         raise InternalServerError.new res
       when 502
         raise BadGatewayError.new res
-      else 
+      else
         raise ParsedError.new res
       end
     end
@@ -38,7 +38,10 @@ class Moysklad::Client
     end
 
     def to_s
-      message
+      message.encode('utf-8')
+      # <?xml version="1.0" encoding="UTF-8"?> <error> <uid>kiiiosk@wannabemoscow</uid> <moment>20150609112728449</moment> <message>������������ ���� ���������� �������� ������������.</message> </error>
+    rescue Encoding::CompatibilityError
+      message.force_encoding('cp1251').encode('utf-8')
     end
   end
 
@@ -78,7 +81,7 @@ class Moysklad::Client
       @status = result.status
       @result = result
       case result.headers['content-type']
-        
+
       when /application\/xml/
         @error = Moysklad::Entities::Error.parse result.body
         @message = @error.message

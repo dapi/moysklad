@@ -8,8 +8,10 @@ module Moysklad::Entities
 
     tag 'customerOrder'
 
-    attribute :created,     Time 
+    attribute :created,     Time
     attribute :createdBy,   String
+
+    attribute :stateUuid, String
 
     attribute :reservedSum,     Float
 
@@ -21,7 +23,7 @@ module Moysklad::Entities
     attribute :targetAccountUuid, String
 
     attribute :applicable,      Boolean
-    attribute :moment,          Time 
+    attribute :moment,          Time
 
     attribute :payerVat,        Boolean
 
@@ -38,5 +40,12 @@ module Moysklad::Entities
 
     has_many  :customerOrderPosition, Moysklad::Entities::CustomerOrderPosition
 
+    def state universe
+      cache :customer_order_states, universe do
+        fail "No stateUuid in CustomerOrder #{uuid}" unless stateUuid
+        workflow = universe.workflows.findWhere name: 'CustomerOrder'
+        workflow.states.find { |s| s.uuid == stateUuid }
+      end
+    end
   end
 end

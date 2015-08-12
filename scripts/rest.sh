@@ -23,4 +23,3 @@ fi
 
 echo $url >&2
 curl --max-redirs 3 -is -u $MS_LOGIN:$MS_PASSWORD $url
-

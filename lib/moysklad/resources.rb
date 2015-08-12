@@ -17,7 +17,10 @@ module Moysklad::Resources
   require_relative 'resources/subresource'
 
   # Простые ресурсы, которые создаются автоматически
-  %w{Goods GoodFolders Uoms PriceType Countries Features CustomEntities CustomerOrders Warehouses Companies Consignments MyCompanies}.each do |klass_name|
+  %w{Goods GoodFolders Uoms PriceType Countries Features
+    CustomEntities CustomerOrders Warehouses
+    Workflows
+    Companies Consignments MyCompanies}.each do |klass_name|
     const_set klass_name, Class.new( Base )
   end
 

@@ -36,6 +36,8 @@ module Moysklad
       StockTO
       Company
       Warehouse
+      WorkflowState
+      Workflow
       Collection
       CustomEntity
       Page

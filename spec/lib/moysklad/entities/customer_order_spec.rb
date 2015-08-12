@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Moysklad::Entities::CustomerOrder do
   context 'generate' do
     subject {
-      p= Moysklad::Entities::CustomerOrderPosition.new 
+      p= Moysklad::Entities::CustomerOrderPosition.new
       p.vat = 18
       p.basePrice = Moysklad::Entities::Price.new
       p.basePrice.sum = 123
@@ -16,6 +16,12 @@ describe Moysklad::Entities::CustomerOrder do
       co.customerOrderPosition = p
       co
     }
+
+    it 'state' do
+      stub_rest 'Workflow', :list, 0
+      allow(subject).to receive(:stateUuid).and_return 'f16b0ca9-ff79-11e4-90a2-8ecb0000fdf9'
+      expect(subject.state universe).to be_a Moysklad::Entities::WorkflowState
+    end
 
     it 'to_xml' do
       expect(subject.to_xml).to be_a String
@@ -49,5 +55,4 @@ describe Moysklad::Entities::CustomerOrder do
       expect(subject.to_xml).to include "<customerOrderPosition"
     end
   end
-
 end

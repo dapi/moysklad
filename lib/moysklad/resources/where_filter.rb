@@ -23,5 +23,4 @@ module Moysklad::Resources::WhereFilter
   def filtered? o, filter={}
     filter.select { |k,v| o.send(k)==v }.count == filter.keys.count
   end
-
 end

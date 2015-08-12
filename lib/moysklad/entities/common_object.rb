@@ -24,6 +24,4 @@ module Moysklad::Entities::CommonObject
     element :externalcode,  String
     element :description,   String
   end
-
 end
-

@@ -86,7 +86,7 @@ class Moysklad::Client
         @error = Moysklad::Entities::Error.parse result.body
         @message = @error.message
       when /text\/html/
-        doc = Nokogiri::HTML body
+        doc = Nokogiri::HTML result.body
         @message = doc.css('body').css('h1').text
       else
         raise "Unknown content-type #{result.headers['content-type']} to parse error #{result.body}"

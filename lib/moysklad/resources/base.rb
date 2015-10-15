@@ -1,7 +1,21 @@
 class Moysklad::Resources::Base
   PREFIX_PATH = 'exchange/rest/ms/xml/'
 
-  def self.inherited superclass 
+  class XMLResponseError < StandardError
+    def initialize(xml)
+      @xml = xml
+    end
+
+    def to_s
+      message
+    end
+
+    def message
+      @xml.to_s
+    end
+  end
+
+  def self.inherited superclass
     super
     Moysklad::Resources.register_resource superclass
   end
@@ -63,7 +77,7 @@ class Moysklad::Resources::Base
   #
   # @param uuid
   def delete uuid
-    client.delete item_path uuid 
+    client.delete item_path uuid
   end
 
   def self.type
@@ -91,7 +105,9 @@ class Moysklad::Resources::Base
   end
 
   def parse content
-    self.class.entity_class.parse parse_content content
+    xml = parse_content content
+    raise XMLResponseError, xml if xml.root.name == 'error'
+    self.class.entity_class.parse xml
   end
 
   def parse_content content
@@ -101,7 +117,7 @@ class Moysklad::Resources::Base
   def parse_page content
     col = Moysklad::Entities::Collection.parse parse_content content
 
-    # TODO Парсится два раза. Оптимизировать. Например сделать динамические CollectionFeature 
+    # TODO Парсится два раза. Оптимизировать. Например сделать динамические CollectionFeature
     # и парсить через них
 
     items = parse content
@@ -123,5 +139,4 @@ class Moysklad::Resources::Base
   def prefix_path
     PREFIX_PATH + self.class.type
   end
-
 end

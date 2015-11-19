@@ -283,6 +283,10 @@ dictionary.entities(universe)
 
     > MS_LOGON=логин MS_PASSWORD=пароль ./script/rest.sh Country list > ./spec/fixtures/Country_list.raw
 
+Если получаете 429 ошибку (too many requests) - лимит обращений по API от одного
+аккаунта - 5 или 10 запросов в секунду (в секунду, Карл). Если не превышать его,
+все будет хорошо - минутных или часовых лимитов нет.
+
 ## Ссылочки
 
 * Картапамяти по API http://www.mindmeister.com/246618635/online-moysklad-ru

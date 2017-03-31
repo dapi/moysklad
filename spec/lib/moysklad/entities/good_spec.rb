@@ -43,4 +43,13 @@ describe Moysklad::Entities::Good do
     end
   end
 
+  describe 'image' do
+    let(:xml) { File.read './spec/fixtures/good_with_image.xml' }
+    subject { described_class.parse xml }
+
+    it do
+      expect(subject.images.image.count).to eq 1
+    end
+  end
+
 end

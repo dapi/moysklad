@@ -8,6 +8,9 @@ module Moysklad
     autoload :Common
 
     %w{
+      Image
+      Images
+      Barcode
       AttachmentDocument
       Slot
       Uom
@@ -45,5 +48,4 @@ module Moysklad
       autoload m
     end
   end
-
 end

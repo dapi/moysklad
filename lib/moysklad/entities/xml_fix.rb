@@ -11,5 +11,4 @@ module Moysklad::Entities::XmlFix
 
     write_out_to_xml ? result.to_xml : result
   end
-
 end

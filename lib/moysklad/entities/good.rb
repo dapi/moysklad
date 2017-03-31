@@ -21,9 +21,9 @@ module Moysklad::Entities
     element   :salePrices,        Moysklad::Entities::SalePrices
 
     has_many  :attributes,        Attribute
-
+    element   :images,            Moysklad::Entities::Images
+    element   :barcode,           Moysklad::Entities::Barcode
     # preferences
-    # images
 
     def features universe
       cache :features, universe do

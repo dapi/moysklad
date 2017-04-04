@@ -1,19 +1,6 @@
+require 'json'
 class Moysklad::Resources::Base
-  PREFIX_PATH = 'exchange/rest/ms/xml/'
-
-  class XMLResponseError < StandardError
-    def initialize(xml)
-      @xml = xml
-    end
-
-    def to_s
-      message
-    end
-
-    def message
-      @xml.to_s
-    end
-  end
+  PREFIX_PATH = 'entity/'
 
   def self.inherited superclass
     super
@@ -33,25 +20,22 @@ class Moysklad::Resources::Base
     @client = client
   end
 
+  def metadata
+    Moysklad::Entities::ResourceMetadata.new client.get metadata_path
+  end
+
   # Возвращает список элементов как есть
   #
   # @return [Array of Moysklad::Entities::Base]
   def list params={}
-    parse client.get list_path, params
-  end
-
-  # Возвращает страницу со списком элементов
-  #
-  # @return [Moysklad::Entities::Page]
-  def page params={}
-    parse_page client.get list_path, params
+    load_collection client.get list_path, params
   end
 
   # Забираем элемент по uuid
   #
   # @return [Moysklad::Entities::Base]
   def get uuid
-    parse client.get item_path uuid
+    parse_get client.get item_path uuid
   end
 
   # Модифицируем элемент по uuid
@@ -88,32 +72,16 @@ class Moysklad::Resources::Base
     ActiveSupport::Inflector.underscore ActiveSupport::Inflector.pluralize type
   end
 
-  def self.entity_class
-    ActiveSupport::Inflector.constantize "Moysklad::Entities::#{type.to_s}"
-  end
-
   private
 
   attr_reader :client
 
-  def parse content
-    xml = parse_content content
-    raise XMLResponseError, xml if xml.root.name == 'error'
-    self.class.entity_class.parse xml
+  def parse_get data
+    entity_class.new data
   end
 
-  def parse_content content
-    Nokogiri::XML content
-  end
-
-  def parse_page content
-    col = Moysklad::Entities::Collection.parse parse_content content
-
-    # TODO Парсится два раза. Оптимизировать. Например сделать динамические CollectionFeature
-    # и парсить через них
-
-    items = parse content
-    Moysklad::Entities::Page.new items, col.total,  col.start, col.count
+  def load_collection data
+    collection_class.new data
   end
 
   def item_path uuid
@@ -125,10 +93,22 @@ class Moysklad::Resources::Base
   end
 
   def list_path
-    prefix_path + '/list'
+    prefix_path
+  end
+
+  def metadata_path
+    prefix_path + '/metadata'
+  end
+
+  def collection_class
+    Moysklad::Entities::Collection
+  end
+
+  def entity_class
+    ActiveSupport::Inflector.constantize "Moysklad::Entities::#{self.class.type.to_s}"
   end
 
   def prefix_path
-    PREFIX_PATH + self.class.type
+    PREFIX_PATH + self.class.type.downcase
   end
 end

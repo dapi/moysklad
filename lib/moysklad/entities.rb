@@ -1,28 +1,13 @@
 module Moysklad
   module Entities
     extend ActiveSupport::Autoload
-
-    autoload :XmlFix
-    autoload :CommonObject
-    autoload :CompanyConcern
-    autoload :Common
-
     %w{
-      Image
-      Images
-      Barcode
       AttachmentDocument
-      Slot
       Uom
-      Country
-      Contact
-      GoodFolder
-      Good
+      Productfolder
+      Product
       Barcode
-      SalePrices
-      SalePrice
       Error
-      CustomerOrderPosition
       Consignment
       MyCompany
       Attribute
@@ -30,20 +15,21 @@ module Moysklad
       Base
       CustomerOrder
       CustomEntity
-      CustomEntityMetadata
-      Feature
+      Variant
       AttributeMetadata
       EmbeddedEntityMetadata
       Price
-      PriceType
-      StockTO
       Company
-      Warehouse
-      WorkflowState
-      Workflow
+      Store
+      Service
+      Owner
+      Group
       Collection
       CustomEntity
       Page
+      ResourceMetadata
+      Attribute
+      Characteristic
     }.each do |m|
       autoload m
     end

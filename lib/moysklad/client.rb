@@ -4,7 +4,8 @@ require_relative 'client/errors'
 
 class Moysklad::Client
 
-  URL = 'https://online.moysklad.ru'
+  # URL = 'https://online.moysklad.ru'
+  URL  ='https://online.moysklad.ru/api/remap/1.1/'
 
   def initialize login: nil, password: nil
     @client = Faraday.new URL
@@ -13,7 +14,7 @@ class Moysklad::Client
 
   def get path, params={}
     logger.debug "Client: GET #{path} #{params}"
-    validate client.get path, params
+    parse_response client.get path, params
   end
 
   def put path, data
@@ -24,11 +25,11 @@ class Moysklad::Client
       req.headers['Accept'] = '*/*'
       req.body = data
     end
-    validate result
+    parse_response result
   end
 
   def delete path
-    validate client.delete path
+    parse_response client.delete path
   end
 
   private
@@ -39,10 +40,11 @@ class Moysklad::Client
     Moysklad.logger
   end
 
-  def validate res
-    return res.body if res.status == 200
-
-    Moysklad::Client::Errors.build res
+  def parse_response res
+    if res.status == 200
+      JSON.parse res.body
+    else
+      Moysklad::Client::Errors.build res
+    end
   end
-
 end

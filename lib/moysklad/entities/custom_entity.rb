@@ -1,18 +1,12 @@
-# https://online.moysklad.ru/exchange/rest/ms/xml/CustomEntity/list
-# Элемент пользовательского справочника
-# (значения перечисляемых свойств)
+require_relative 'meta'
+
 module Moysklad::Entities
   class CustomEntity < Base
-    include CommonObject
-    include XmlFix
+    attribute :meta, Meta
+    attribute :name, String
 
-    tag 'customEntity'
-
-    attribute :entityMetadataUuid,     String 
-
-    def entityMetadata universe
-      universe.custom_entity_metadata.find entityMetadataUuid
+    def to_s
+      name
     end
-
   end
 end

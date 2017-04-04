@@ -3,7 +3,7 @@ require_relative 'where_filter'
 module Moysklad::Resources
   class Indexed  < SimpleDelegator
     WrongEntriesCountError = Class.new StandardError
-    ObjectHaveNoUuidError  = Class.new StandardError
+    NoIdInEntity  = Class.new StandardError
 
     include WhereFilter
 
@@ -23,11 +23,11 @@ module Moysklad::Resources
     # Предварительно подгружает все записи через метод `all`
     #
     # @return Moyskald::Entities::Base
-    def find uuid
-      index[uuid]
+    def find id
+      index[id]
     end
 
-    # Перечень uuid-ов всех элементов в ресуресе
+    # Перечень id-ов всех элементов в ресуресе
     #
     # @return [Array of uuids]
     def uuids
@@ -59,28 +59,28 @@ module Moysklad::Resources
     end
 
     def load_full_list
-      start = 0
-      list = []
-
-      _page = nil
+      limit = 100
+      offset = 0
+      rows = []
+      collection = nil
 
       begin
-        _page = page start: start
-        list += _page.items
-        break if _page.items.empty?
-        start = list.count
-      end while start<_page.total
+        collection = list limit: limit, offset: offset
+        rows += collection.rows
+        break if collection.rows.empty?
+        offset = rows.count
+      end while offset<collection.meta.size
 
-      raise WrongEntriesCountError, "При загрузке коллекции в результате колиество не совпадает с total: #{list.count}<>#{_page.total}" unless list.count==_page.total
+      raise WrongEntriesCountError, "При загрузке коллекции в результате колиество не совпадает с total: #{rows.count}<>#{collection.meta.size}" unless rows.count==collection.meta.size
 
-      list
+      rows
     end
 
     def prepare_index cached_list
       i={}
       cached_list.each do |r|
-        raise ObjectHaveNoUuidError, "У объекта нет uuid: #{r.to_xml}" unless r.respond_to?(:uuid) && r.uuid
-        i[r.uuid]=r
+        raise NoIdInEntity, "У объекта нет id: #{r}" unless r.respond_to?(:id) && r.id
+        i[r.id]=r
       end
       return i
     end

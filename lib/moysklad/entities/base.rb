@@ -1,16 +1,15 @@
 module Moysklad::Entities
   class Base
-    #include Object
+    include Virtus.model
 
-    private
+    def initialize(data)
+      super (data || {}).merge(dump: data)
+    end
 
-    def cache ns, key
-      @cache||={}
-      @cache[ns]||={}
-      cc = @cache[ns]
+    attribute :dump, Hash
 
-      cc[key] = yield unless cc.has_key? key
-      cc[key]
+    def to_s
+      attributes.to_s
     end
   end
 end

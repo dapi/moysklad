@@ -1,15 +1,12 @@
+require_relative 'currency'
 module Moysklad::Entities
   class Price < Base
-    include HappyMapper
-    include Moysklad::Entities::XmlFix
+    attribute :value, Float
+    attribute :currency, Currency
+    attribute :priceType, String # Цена продажи/ Распродажа
 
     def self.from_money money
-      p = new
-      p.sumInCurrency = p.sum = money.cents
-      p
+      raise 'not implemented'
     end
-
-    attribute :sumInCurrency, Float
-    attribute :sum,           Float
   end
 end

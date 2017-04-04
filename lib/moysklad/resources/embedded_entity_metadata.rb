@@ -15,6 +15,5 @@ module Moysklad::Resources
     def self.indexed *args
       Moysklad::Resources::EmbeddedEntityMetadataIndexed.new new(*args)
     end
-
   end
 end

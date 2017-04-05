@@ -15,13 +15,14 @@ class Moysklad::Resources::Base
   end
 
   # https://support.moysklad.ru/hc/ru/articles/203404253-REST-сервис-синхронизации-данных
-  def initialize client: nil
+  def initialize client: nil, list_path: nil
+    @list_path = list_path
     raise "Должен быть Moysklad::Client" unless client.is_a? Moysklad::Client
     @client = client
   end
 
   def metadata
-    Moysklad::Entities::ResourceMetadata.new client.get metadata_path
+    Moysklad::Entities::ResourceMetadata.build client.get(metadata_path), self
   end
 
   # Возвращает список элементов как есть
@@ -77,11 +78,11 @@ class Moysklad::Resources::Base
   attr_reader :client
 
   def parse_get data
-    entity_class.new data
+    entity_class.build data, self
   end
 
   def load_collection data
-    collection_class.new data
+    collection_class.build data, self
   end
 
   def item_path uuid
@@ -93,7 +94,7 @@ class Moysklad::Resources::Base
   end
 
   def list_path
-    prefix_path
+    @list_path ||= prefix_path
   end
 
   def metadata_path

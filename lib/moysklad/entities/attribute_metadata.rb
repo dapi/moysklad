@@ -7,5 +7,10 @@ module Moysklad::Entities
     attribute :name, String
     attribute :type, String # string, customentity
     attribute :required, Boolean
+    attribute :customEntityMeta, Meta
+
+    def is_dictionary?
+      type == 'customentity'
+    end
   end
 end

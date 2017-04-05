@@ -16,7 +16,12 @@ module Moysklad::Entities
     private
 
     def find_entity_class(type)
-      constantize 'Moysklad::Entities::' + camelize(type)
+      case type
+      when 'customentity'
+        Moysklad::Entities::CustomEntity
+      else
+        constantize 'Moysklad::Entities::' + camelize(type)
+      end
     rescue NameError
       raise Moysklad::Error, "No entity class for #{type} type"
     end

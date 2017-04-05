@@ -3,12 +3,9 @@ require_relative 'productfolder'
 require_relative 'uom'
 require_relative 'entity'
 require_relative 'attribute_metadata'
-require_relative 'attributes_support'
 
 module Moysklad::Entities
   class Product < Entity
-    include AttributesSupport
-
     attribute :accountId,         String
     attribute :owner,             Owner
     attribute :group,             Group
@@ -19,12 +16,13 @@ module Moysklad::Entities
     attribute :pathName,          String
     attribute :productFolder,     Productfolder
 
-    # attribute :uom,               Uom
+    attribute :uom,               Uom
 
     attribute :minPrice,          Float
-    attribute :salePrice,         Float
     attribute :buyPrice,          Currency
     attribute :salePrices,        Array[Price]
+
+    attribute :image,             Hash
 
     attribute :article,           String
     attribute :weighed,           Boolean
@@ -36,6 +34,13 @@ module Moysklad::Entities
     attribute :isSerialTrackable, Boolean
 
     attribute :modificationsCount, Integer
+
+
+    # Когда загружаем через ассортименты эти поля устанавливаются
+    attribute :stock, Float
+    attribute :reserve, Float
+    attribute :inTransit, Float
+    attribute :quantity, Float
 
     # preferences
 

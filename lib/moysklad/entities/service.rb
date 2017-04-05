@@ -18,5 +18,11 @@ module Moysklad::Entities
 
     attribute :minPrice,          Float
     attribute :salePrices,        Array[Price]
+
+    # Когда загружаем через ассортименты эти поля устанавливаются
+    attribute :stock, Float
+    attribute :reserve, Float
+    attribute :inTransit, Float
+    attribute :quantity, Float
   end
 end

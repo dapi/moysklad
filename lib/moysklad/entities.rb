@@ -18,14 +18,15 @@ module Moysklad
       Variant
       AttributeMetadata
       EmbeddedEntityMetadata
+      CompanySettingsMetadata
       Price
+      Currency
       Company
       Store
       Service
       Owner
       Group
       Collection
-      CustomEntity
       Page
       ResourceMetadata
       Attribute

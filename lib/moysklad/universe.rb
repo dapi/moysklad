@@ -14,6 +14,20 @@ module Moysklad
       Client
     end
 
+    def company_settings_metadata
+      Moysklad::Entities::CompanySettingsMetadata.build client.get('entity/companysettings/metadata'), self
+    end
+
+    # Все элементы всех словарей
+    def all_custom_entities
+      list = []
+      dictionaries = company_settings_metadata.customEntities
+      dictionaries.each do |d|
+        list += d.entities(self)
+      end
+      list
+    end
+
     # Ленивое создание universe
     #
     # @param login
@@ -25,8 +39,8 @@ module Moysklad
     @@resources_list = []
     Moysklad::Resources.resources.each do |resource_klass|
       @@resources_list << resource_klass.pluralized_type.to_sym
-      define_method resource_klass.pluralized_type do
-        @resources[resource_klass.type] ||= resource_klass.indexed( client: client )
+      define_method resource_klass.pluralized_type do |opts={}|
+        @resources[resource_klass.type] ||= resource_klass.indexed( opts.merge client: client )
       end
     end
 

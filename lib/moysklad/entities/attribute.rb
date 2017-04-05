@@ -1,4 +1,5 @@
 require_relative 'attribute_value'
+require_relative 'meta'
 
 # Атрибут товара (ссылка на его тип и его значение)
 module Moysklad::Entities
@@ -6,8 +7,10 @@ module Moysklad::Entities
     attribute :meta, Meta
     attribute :id, String
     attribute :name, String
+    attribute :customEntityMeta, Meta
     attribute :type, String #attributemetadata
     attribute :value, AttributeValue
+    attribute :required, Boolean
 
     def to_s
       "#{name} (#{type}): #{value}"

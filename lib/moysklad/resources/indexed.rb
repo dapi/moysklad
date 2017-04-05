@@ -1,4 +1,5 @@
 require_relative 'where_filter'
+require_relative 'load_all'
 
 module Moysklad::Resources
   class Indexed  < SimpleDelegator
@@ -6,6 +7,7 @@ module Moysklad::Resources
     NoIdInEntity  = Class.new StandardError
 
     include WhereFilter
+    include LoadAll
 
     def initialize resource
       raise TypeError, 'resource должен быть Moysklad::Resources::Base' unless resource.is_a? Moysklad::Resources::Base
@@ -17,6 +19,10 @@ module Moysklad::Resources
     # @return [Array of Moysklad::Entities::Base]
     def all
       @cached_list || pull_list
+    end
+
+    def cache
+      all.count
     end
 
     # Возвращает запрашивемую запись из кеша.
@@ -53,27 +59,9 @@ module Moysklad::Resources
     end
 
     def pull_list
-      @cached_list = load_full_list
+      @cached_list = load_all
       @_index = prepare_index @cached_list
       @cached_list
-    end
-
-    def load_full_list
-      limit = 100
-      offset = 0
-      rows = []
-      collection = nil
-
-      begin
-        collection = list limit: limit, offset: offset
-        rows += collection.rows
-        break if collection.rows.empty?
-        offset = rows.count
-      end while offset<collection.meta.size
-
-      raise WrongEntriesCountError, "При загрузке коллекции в результате колиество не совпадает с total: #{rows.count}<>#{collection.meta.size}" unless rows.count==collection.meta.size
-
-      rows
     end
 
     def prepare_index cached_list
@@ -84,6 +72,5 @@ module Moysklad::Resources
       end
       return i
     end
-
   end
 end

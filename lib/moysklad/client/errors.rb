@@ -1,29 +1,30 @@
 class Moysklad::Client
   class Errors
     def self.build res
+      # is_json = res.headers['content-type'].start_with? 'application/json'
       # Encoding::UndefinedConversionError
       # "\xD0" from ASCII-8BIT to UTF-8
       begin
-        body = res.status==401 ? res.body.force_encoding('utf-8') : res.body
+        body = JSON.parse res.body.force_encoding('utf-8')
         Moysklad.logger.warn "Moyskad::Client: #{res.status}: #{res.env.url.to_s}\n#{body}"
       rescue Encoding::UndefinedConversionError
       end
 
       case res.status
       when 401
-        raise UnauthorizedError.new res
+        raise UnauthorizedError.new body
       when 403
-        raise ResourceForbidden.new res
+        raise ResourceForbidden.new body
       when 404
-        raise NoResourceFound.new res.body
-      when 405
-        raise MethodNotAllowedError.new res
+        raise NoResourceFound.new body
+      when 405, 412
+        raise MethodNotAllowedError.new body
       when 500
-        raise InternalServerError.new res
+        raise InternalServerError.new body
       when 502
-        raise BadGatewayError.new res
+        raise BadGatewayError.new body
       else
-        raise ParsedError.new res
+        raise ParsedError.new body
       end
     end
   end
@@ -47,6 +48,14 @@ class Moysklad::Client
 
   class NoResourceFound < Error; end
 
+  class JsonParsedError < Error
+    def initialize result
+      super result.to_json
+    end
+
+    attr_reader :error
+  end
+
   class HtmlParsedError < Error
     def initialize res
       @result  = res
@@ -67,13 +76,13 @@ class Moysklad::Client
     end
   end
 
-  class MethodNotAllowedError < HtmlParsedError
+  class MethodNotAllowedError < JsonParsedError
   end
 
-  class UnauthorizedError < HtmlParsedError
+  class UnauthorizedError < JsonParsedError
   end
 
-  class ResourceForbidden < HtmlParsedError
+  class ResourceForbidden < JsonParsedError
   end
 
   class ParsedError < Error
@@ -99,6 +108,6 @@ class Moysklad::Client
   end
 
 
-  class BadGatewayError < HtmlParsedError; end
+  class BadGatewayError < JsonParsedError; end
   class InternalServerError < ParsedError; end
 end

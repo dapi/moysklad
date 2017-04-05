@@ -1,5 +1,6 @@
 require_relative 'characteristic'
 require_relative 'shortcut'
+require_relative 'entity'
 
 module Moysklad::Entities
   class Variant < Entity
@@ -12,6 +13,12 @@ module Moysklad::Entities
     attribute :salePrices, Array[Price]
     attribute :product, Shortcut
     attribute :things, Array[String]
+
+    # Когда загружаем через ассортименты эти поля устанавливаются
+    attribute :stock, Float
+    attribute :reserve, Float
+    attribute :inTransit, Float
+    attribute :quantity, Float
 
 #characteristics - Характеристики Модификации Необходимое
 #minPrice - Минимальная цена

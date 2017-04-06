@@ -12,6 +12,11 @@ class Moysklad::Client
     @client.basic_auth login, password
   end
 
+  def download(path, filename)
+    response = client.get path
+    File.open(filename, 'wb') { |fp| fp.write(response.body) }
+  end
+
   def get path, params={}
     logger.debug "Client: GET #{path} #{params}"
     parse_response client.get path, params

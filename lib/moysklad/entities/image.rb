@@ -1,21 +1,17 @@
+require_relative 'base'
 module Moysklad::Entities
   class Image < Base
-    include HappyMapper
-    include Moysklad::Entities::XmlFix
-
-    tag 'image'
-
-    attribute :created,  Time
-    attribute :updated,  Time
-    attribute :updatedBy,  String
-    attribute :name,  String
-    attribute :tinyUuid, String
+    attribute :meta,  Meta
+    attribute :title, String
     attribute :filename, String
-    attribute :miniatureUuid, String
+    attribute :size, Integer
 
-    attribute :accountUuid, String
-    attribute :accountId, String
-    attribute :uuid, String
-    attribute :externalcode, String
+    attribute :updated, Time
+    attribute :miniature, Meta
+    attribute :tiny, Meta
+
+    def download(client, dir)
+      client.download meta.href, dir + filename
+    end
   end
 end

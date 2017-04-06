@@ -54,7 +54,9 @@ universe = Moysklad::Universe.build login: ENV['MS_LOGIN'], password: ENV['MS_PA
 # e63c1592-807b-11e4-90a2-8ecb00113f68
 # entities = attr.entities universe
 
-#products = universe.products.list
+product = universe.products.list.rows.first
+puts product.image.dump
+# product.image.download(client)
 
 #products.rows.each do |p|
   #binding.pry if p.attrs.count > 0

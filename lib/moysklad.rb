@@ -2,7 +2,6 @@ require 'virtus'
 require 'active_support'
 require "moysklad/version"
 
-require 'pry'
 require 'logger'
 
 module Moysklad

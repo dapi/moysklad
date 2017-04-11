@@ -35,8 +35,8 @@ class Moysklad::Resources::Base
   # Забираем элемент по uuid
   #
   # @return [Moysklad::Entities::Base]
-  def get uuid
-    parse_get client.get item_path uuid
+  def get uuid, params = {}
+    parse_get client.get item_path(uuid), params
   end
 
   # Модифицируем элемент по uuid

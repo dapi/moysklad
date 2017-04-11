@@ -7,7 +7,7 @@ module Moysklad::Resources
       new(*args)
     end
 
-    def all(params)
+    def all(params = {})
       load_all(params)
     end
   end

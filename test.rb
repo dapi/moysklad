@@ -1,7 +1,9 @@
 #!/bin/bash ruby
 $LOAD_PATH.unshift './lib'
 require 'moysklad'
+require 'byebug'
 universe = Moysklad::Universe.build login: ENV['MS_LOGIN'], password: ENV['MS_PASSWORD']
+
 
 # goods -> products
 # good_folders -> productfolders
@@ -53,9 +55,15 @@ universe = Moysklad::Universe.build login: ENV['MS_LOGIN'], password: ENV['MS_PA
 # attr = attrs.first
 # e63c1592-807b-11e4-90a2-8ecb00113f68
 # entities = attr.entities universe
-
-product = universe.products.list.rows.first
-puts product.image.dump
+#id = "022528e1-fcfe-11e6-7a69-97110054d4e7"
+#byebug
+#products = universe.products.all(expand: :productFolder)
+#byebug
+#products.each do |p|
+  #puts p.dump.to_json
+  ## binding.pry if p.externalCode == 'fhiI8yDIjwC-1-kiIbSO62'
+  ## puts "#{p.externalCode}\t#{p.id}\t#{p.name}"
+#end
 # product.image.download(client)
 
 #products.rows.each do |p|
@@ -70,8 +78,7 @@ puts product.image.dump
   #puts p.characteristics.map { |c| c.meta.href }
 ##  #puts p.characteristics.join('; ')
 #end
-binding.pry
-puts products.metadata
+# puts products.metadata
 #roduct = products.rows.first
 
 # Товар с attributes
@@ -82,7 +89,8 @@ puts products.metadata
 #puts product_folders.meta.size
 #puts universe.productfolders.get product_folders.rows.first.id
 
-#variants = universe.variants.list
+variants = universe.variants.list
+byebug
 ## puts variants.meta.size
 #variants.rows.each do |v|
   #next unless v.characteristics

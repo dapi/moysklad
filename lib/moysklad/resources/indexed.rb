@@ -17,8 +17,8 @@ module Moysklad::Resources
     # Автоматически подгружает постранично данныез из API и возвращает их все сразу.
     #
     # @return [Array of Moysklad::Entities::Base]
-    def all
-      @cached_list || pull_list
+    def all(params = {})
+      @cached_list || pull_list(params)
     end
 
     def cache
@@ -58,8 +58,8 @@ module Moysklad::Resources
       @_index
     end
 
-    def pull_list
-      @cached_list = load_all
+    def pull_list(params)
+      @cached_list = load_all(params)
       @_index = prepare_index @cached_list
       @cached_list
     end

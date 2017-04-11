@@ -1,22 +1,22 @@
+require_relative 'entity'
 module Moysklad::Entities
-  # https://online.moysklad.ru/exchange/rest/ms/xml/Consignment/list
-  class Consignment < Base
-    include Common
+  class Consignment < Entity
+    attribute :meta, Meta
+    attribute :id,                String
+    attribute :version,           Integer
+    attribute :updated,           String
+    attribute :name,              String
+    attribute :label,              String
+    attribute :externalCode,      String
+    attribute :archived,          Boolean
 
-    tag 'consignment'
+    attribute :accountId,         String
+    attribute :assortment,        Hash # Assortment
 
-    attribute :updated,      Time
-    attribute :updatedBy,    String
-
-    attribute :name,         String
-
-    attribute :goodUuid,     String
-    attribute :isDefault,    Boolean
-
-    attribute :archived,     Boolean
-
-    element   :externalcode, String
-
-    has_one   :feature,      Moysklad::Entities::Feature
+    # Когда загружаем через ассортименты эти поля устанавливаются
+    attribute :stock, Float
+    attribute :reserve, Float
+    attribute :inTransit, Float
+    attribute :quantity, Float
   end
 end

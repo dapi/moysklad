@@ -17,7 +17,7 @@ module Moysklad::Entities
     end
 
     def entities(universe)
-      universe.custom_entities(list_path: entityMeta.href).all
+      Moysklad::Resources::CustomEntities.indexed(client: universe.client, list_path: entityMeta.href).all
     end
   end
 

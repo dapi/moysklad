@@ -23,7 +23,7 @@ if [ "$action"=="list" ] && [ -n "$start" ]; then
   url="$url?start=$start"
 fi
 
+# url="https://online.moysklad.ru/api/remap/1.1/entity/variant/metadata/characteristics/3e277152-78ac-11e4-7a07-673c000ca568"
 echo $url >&2
-url="https://online.moysklad.ru/api/remap/1.1/entity/variant/metadata/characteristics/3e277152-78ac-11e4-7a07-673c000ca568"
 curl --max-redirs 3 -is -u $MS_LOGIN:$MS_PASSWORD $url
 

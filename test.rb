@@ -2,6 +2,7 @@
 $LOAD_PATH.unshift './lib'
 require 'moysklad'
 require 'byebug'
+require 'pry'
 universe = Moysklad::Universe.build login: ENV['MS_LOGIN'], password: ENV['MS_PASSWORD']
 
 
@@ -29,18 +30,26 @@ universe = Moysklad::Universe.build login: ENV['MS_LOGIN'], password: ENV['MS_PA
 # https://online.moysklad.ru/api/remap/1.1/entity/variant/metadata/
 # https://online.moysklad.ru/api/remap/1.1/entity/product/metadata/
 #
+# stores =  universe.stores.all
+
+# binding.pry
 # puts universe.uoms.list
 #
 # Список словарей
-#m = universe.company_settings_metadata
+m = universe.company_settings_metadata
 ##
 ## Список аттрибутов
-#m.customEntities.each do |a|
-  #puts '---'
-  #puts a.meta.href
-  #puts a.entityMeta.href
-  #puts a.entities(universe).map &:id
-#end
+dictionaries = m.customEntities
+
+dictionaries.each do |a|
+  puts '---'
+  puts a.meta.href
+  puts a.entityMeta.href
+  binding.pry
+  puts a.entities(universe).map { |e| [e.id, e.name].join(':') }.join(', ')
+end
+
+binding.pry
 
 # puts universe.currencies.findWhere isoCode: '643'
 # Получаем рекурсивно действительно все значения
@@ -89,8 +98,8 @@ universe = Moysklad::Universe.build login: ENV['MS_LOGIN'], password: ENV['MS_PA
 #puts product_folders.meta.size
 #puts universe.productfolders.get product_folders.rows.first.id
 
-variants = universe.variants.list
-byebug
+# variants = universe.variants.list
+# byebug
 ## puts variants.meta.size
 #variants.rows.each do |v|
   #next unless v.characteristics

@@ -7,6 +7,11 @@ module Moysklad::Resources
       super client: client, list_path: list_path
     end
 
+    # Публичный чтобы был доступен из индекса
+    def cache_key
+      [list_path, custom_entity_meta_id].join(':')
+    end
+
     private
 
     attr_reader :custom_entity_meta_id

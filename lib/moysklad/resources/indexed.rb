@@ -1,5 +1,6 @@
 require_relative 'where_filter'
 require_relative 'load_all'
+require_relative 'indexed_cache'
 
 module Moysklad::Resources
   class Indexed  < SimpleDelegator
@@ -8,6 +9,7 @@ module Moysklad::Resources
 
     include WhereFilter
     include LoadAll
+    include IndexedCache
 
     def initialize resource
       raise TypeError, 'resource должен быть Moysklad::Resources::Base' unless resource.is_a? Moysklad::Resources::Base
@@ -18,11 +20,9 @@ module Moysklad::Resources
     #
     # @return [Array of Moysklad::Entities::Base]
     def all(params = {})
-      @cached_list || pull_list(params)
-    end
-
-    def cache
-      all.count
+      cache_fetch do
+        pull_list(params)
+      end
     end
 
     # Возвращает запрашивемую запись из кеша.
@@ -54,19 +54,17 @@ module Moysklad::Resources
     end
 
     def index
-      pull_list unless @_index
-      @_index
+      pull_list unless cached_index
+      cached_index
     end
 
     def pull_list(params)
-      @cached_list = load_all(params)
-      @_index = prepare_index @cached_list
-      @cached_list
+      load_all(params)
     end
 
-    def prepare_index cached_list
+    def prepare_index list
       i={}
-      cached_list.each do |r|
+      list.each do |r|
         raise NoIdInEntity, "У объекта нет id: #{r}" unless r.respond_to?(:id) && r.id
         i[r.id]=r
       end

@@ -1,4 +1,6 @@
 require_relative 'entity'
+require_relative 'assortment'
+
 module Moysklad::Entities
   class Consignment < Entity
     attribute :meta, Meta
@@ -11,7 +13,7 @@ module Moysklad::Entities
     attribute :archived,          Boolean
 
     attribute :accountId,         String
-    attribute :assortment,        Hash # Assortment
+    attribute :assortment,        Assortment
 
     # Когда загружаем через ассортименты эти поля устанавливаются
     attribute :stock, Float

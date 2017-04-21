@@ -22,11 +22,23 @@ class Moysklad::Client
     parse_response client.get path, params
   end
 
+  def post path, data
+    logger.debug "Client: POST #{path}"
+    result = client.post do |req|
+      req.url path
+      req.headers['Content-Type'] = 'application/json'
+      req.headers['Accept'] = '*/*'
+      puts data
+      req.body = data
+    end
+    parse_response result
+  end
+
   def put path, data
     logger.debug "Client: PUT #{path}"
     result = client.put do |req|
       req.url path
-      req.headers['Content-Type'] = 'application/xml'
+      req.headers['Content-Type'] = 'application/json'
       req.headers['Accept'] = '*/*'
       req.body = data
     end
@@ -47,7 +59,8 @@ class Moysklad::Client
 
   def parse_response res
     if res.status == 200
-      JSON.parse res.body
+      Moysklad.logger.info "Response: #{res.body}"
+      response = JSON.parse res.body
     else
       Moysklad::Client::Errors.build res
     end

@@ -36,20 +36,71 @@ universe = Moysklad::Universe.build login: ENV['MS_LOGIN'], password: ENV['MS_PA
 # puts universe.uoms.list
 #
 # Список словарей
-m = universe.company_settings_metadata
+# m = universe.company_settings_metadata
 ##
 ## Список аттрибутов
-dictionaries = m.customEntities
+#dictionaries = m.customEntities
 
-dictionaries.each do |a|
-  puts '---'
-  puts a.meta.href
-  puts a.entityMeta.href
-  binding.pry
-  puts a.entities(universe).map { |e| [e.id, e.name].join(':') }.join(', ')
-end
+#dictionaries.each do |a|
+  #puts '---'
+  #puts a.meta.href
+  #puts a.entityMeta.href
+  #binding.pry
+  #puts a.entities(universe).map { |e| [e.id, e.name].join(':') }.join(', ')
+#end
+
+# a = universe.counterparties.all
+
+# products = universe.products.all
+
+o = universe.organizations.all
+
+organization = o.first
+
+cp = Moysklad::Entities::Counterparty.new(
+  name: 'Письменный Данил Викторович (test)',
+  externalCode: 'test-couterpaty',
+  actualAddress: 'Чебоксары, ул. Водопроводная, дом 7',
+  email: 'danil@brandymint.ru',
+  tags: ['kiiiosk'],
+  phone: '+79033891228'
+)
+agent = universe.counterparties.create cp
+assortment = {
+  meta: {
+    "href"=>"https://online.moysklad.ru/api/remap/1.1/entity/product/022528e1-fcfe-11e6-7a69-97110054d4e7",
+    "metadataHref"=>"https://online.moysklad.ru/api/remap/1.1/entity/product/metadata",
+    "type"=>"product",
+    "mediaType"=>"application/json"
+  }
+}
+positions = [
+  Moysklad::Entities::CustomerOrderPosition.new(
+    quantity: 1,
+    price: 123,
+    discount: 0,
+    vat: 0,
+    reserve: 1,
+    assortment: assortment
+  )
+]
+customer_order = Moysklad::Entities::CustomerOrder.new(
+  name: "TEST-#{Time.now.to_i}",
+  code: '123456',
+  moment: Moysklad::Entities::Time.now,
+  vatEnabled: false,
+  applicable: false,
+  organization: organization,
+  agent: agent,
+  # state: state,
+  positions: positions,
+  description: 'Тестовый заказ'
+)
+
+order = universe.customer_orders.create customer_order
 
 binding.pry
+puts order
 
 # puts universe.currencies.findWhere isoCode: '643'
 # Получаем рекурсивно действительно все значения

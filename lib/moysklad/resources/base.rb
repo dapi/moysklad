@@ -55,7 +55,7 @@ class Moysklad::Resources::Base
   # @return [Moysklad::Entities::Base]
   def create model
     raise "Должна быть модель типа Moysklad::Entities::Base" unless model.is_a? Moysklad::Entities::Base
-    parse client.put create_path, prepare_resource(model)
+    parse_get client.post create_path, model.to_json
   end
 
   # Удаляем запись по uuid

@@ -1,22 +1,14 @@
+require_relative 'base'
+require_relative 'meta'
+require_relative 'assortment'
+
 module Moysklad::Entities
   class CustomerOrderPosition < Base
-    include HappyMapper
-    include XmlFix
-
-    tag 'customerOrderPosition'
-
-    attribute :vat,       Integer
-    attribute :goodUuid,  String
-    attribute :consignmentUuid, String
-    attribute :quantity,  Float
-    attribute :discount,  Float
-    attribute :consignmentUuid, String
-
-    element :deleted,   Time
-
-    element :basePrice, Moysklad::Entities::Price, tag: :basePrice
-    element :price,     Moysklad::Entities::Price, tag: :price
-    element :reserve,   Float
+    attribute :quantity, Integer
+    attribute :price, Integer
+    attribute :discount, Integer
+    attribute :vat, Integer
+    attribute :reserve, Integer
+    attribute :assortment, Assortment
   end
-
 end

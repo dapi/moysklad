@@ -24,7 +24,7 @@ class Moysklad::Client
       when 502
         raise BadGatewayError.new body
       else
-        raise ParsedError.new body
+        raise JsonParsedError.new body
       end
     end
   end
@@ -101,7 +101,7 @@ class Moysklad::Client
         raise "Unknown content-type #{result.headers['content-type']} to parse error #{result.body}"
       end
     rescue => err
-      @message = "error in init #{err}: #{result.body}"
+      @message = "error in init #{err}: #{result}"
     end
 
     attr_reader :error
@@ -109,5 +109,5 @@ class Moysklad::Client
 
 
   class BadGatewayError < JsonParsedError; end
-  class InternalServerError < ParsedError; end
+  class InternalServerError < JsonParsedError; end
 end

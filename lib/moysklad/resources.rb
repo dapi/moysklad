@@ -15,6 +15,8 @@ module Moysklad::Resources
 
   # Простые ресурсы, которые создаются автоматически
   %w{Products Productfolders Uoms PriceType Countries Variants
+    Counterparty
+    Organization
     CustomerOrders Store
     Currency
     Workflows

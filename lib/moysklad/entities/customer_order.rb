@@ -1,51 +1,135 @@
+require_relative 'entity'
+require_relative 'owner'
+require_relative 'group'
+require_relative 'rate'
+require_relative 'customer_order_position'
+require_relative 'time'
+
 module Moysklad::Entities
   # Пример:
-  # https://support.moysklad.ru/hc/ru/articles/203402923-Пример-загрузки-заказа-покупателя-через-REST-API
+  # https://online.moysklad.ru/api/remap/1.1/doc/index.html#документ-заказ-покупателя
   #
-  class CustomerOrder < Base
-    include CommonObject
-    include XmlFix
+  class CustomerOrder < Entity
 
-    tag 'customerOrder'
+    # АТРИБУТЫ СУЩНОСТИ ¶
+    #
+    # meta - Метаданные о Заказе покупателя
+    # id - ID в формате UUID Только для чтения
+    # accountId - ID учетной записи Только для чтения
+    attribute :accountId,          String
 
-    attribute :created,     Time
-    attribute :createdBy,   String
+    # syncId - ID синхронизации Только для чтения
+    attribute :syncId,          String
 
-    attribute :stateUuid, String
+    # version - Версия сущности Только для чтения
+    # updated - Момент последнего обновления сущности Только для чтения
+    # deleted - Момент последнего удаления сущности Только для чтения
+    # name - номер Заказа покупателя
+    # description - Комментарий Заказа покупателя
+    attribute :description, String
 
-    attribute :reservedSum,     Float
+    # externalCode - Внешний код Заказа покупателя
+    # moment - Дата Заказа
+    attribute :moment, Time
 
-    attribute :sourceStoreUuid, String
-    attribute :sourceAccountUuid, String
-    attribute :sourceAgentUuid, String
+    # applicable - Отметка о проведении
+    attribute :applicable, Boolean
 
-    attribute :targetAgentUuid, String
-    attribute :targetAccountUuid, String
+    # vatIncluded - Включен ли НДС в цену
+    attribute :vatIncluded, Boolean
 
-    attribute :applicable,      Boolean
-    attribute :moment,          Time
+    # vatEnabled - Учитывается ли НДС
+    attribute :vatEnabled, Boolean
 
-    attribute :payerVat,        Boolean
+    # sum - Сумма Заказа в установленной валюте Только для чтения
+    attribute :sum, Integer
 
-    attribute :consignmentUuid, String
+    # rate - Валюта
+    attribute :rate, Rate
 
-    attribute :rate,            Float
+    # owner - Владелец (Сотрудник)
+    attribute :owner, Owner
+    # shared - Общий доступ
 
-    attribute :vatIncluded,     Boolean
-    attribute :name,            String
+    attribute :shared, Boolean
 
-    element   :sum,             Moysklad::Entities::Price, tag: :sum
+    # group - Отдел сотрудника
+    attribute :group, Group
 
-    element   :deleted,         Time
+    # organization - Ссылка на ваше юрлицо в формате Метаданных Необходимое
+    attribute :organization, Entity
 
-    has_many  :customerOrderPosition, Moysklad::Entities::CustomerOrderPosition
+    # agent - Ссылка на контрагента в формате Метаданных Необходимое
+    attribute :agent, Entity
 
-    def state universe
-      cache :customer_order_states, universe do
-        fail "No stateUuid in CustomerOrder #{uuid}" unless stateUuid
-        workflow = universe.workflows.findWhere name: 'CustomerOrder'
-        workflow.states.find { |s| s.uuid == stateUuid }
-      end
-    end
+    # store - Ссылка на склад в формате Метаданных
+    attribute :store, Entity
+
+    # contract - Ссылка на договор в формате Метаданных
+    attribute :contract, Entity
+
+    # state - Статус Заказа в формате Метаданных
+
+    attribute :state, Entity
+
+    # organizationAccount - Ссылка на счёт вашего юрлица в формате Метаданных
+    attribute :organizationAccount, Entity
+
+    # agentAccount - Ссылка на счёт контрагента в формате Метаданных
+    attribute :agentAccount, Entity
+
+    # attributes - Коллекция доп. полей.
+    # attribute :attributes, Hash
+
+    # documents - Список печатных форм в формате Метаданных
+    attribute :documents, Entity
+
+
+    # Поля при expand’е:
+    #
+    # name - номер документа
+    # moment - дата печати
+    # href - ссылка на файл печатной формы
+    # fileName - название файла печатной формы
+    # updated - дата последнего изменения
+    # created - Дата создания Только для чтения
+    #
+
+    # vatSum - Сумма НДС Только для чтения
+    attribute :vatSum, Integer
+
+    # positions - Ссылка на позиции в Заказе в формате Метаданных
+    attribute :positions, Object # Array[CustomerOrderPosition] или CollectionMeta
+
+    # reservedSum - Сумма товаров в резерве Только для чтения
+    attribute :reservedSum, Integer
+
+    # deliveryPlannedMoment - Планируемая дата отгрузки
+    attribute :deliveryPlannedMoment, Time
+
+    # payedSum - Сумма входящих платежей по Заказу Только для чтения
+    attribute :payedSum, Integer
+
+    # shippedSum - Сумма отгруженного Только для чтения
+    attribute :shippedSum, Integer
+
+    # invoicedSum - Сумма счетов покупателю Только для чтения
+    attribute :invoicedSum, Integer
+
+    # project - Ссылка на проект в фоÑмате Метаданных
+    #
+    # СВЯЗИ С ДРУГИМИ ДОКУМЕНТАМИ
+    #
+    # purchaseOrders - Массив ссылок на связанные заказы поставщикам
+    # demands - Массив ссылок на связанные отгрузки
+    # payments - Массив ссылок на связанные платежи
+    # invoicesOut - Массив ссылок на связанные счета покупателям
+    #def state universe
+      #cache :customer_order_states, universe do
+        #fail "No stateUuid in CustomerOrder #{uuid}" unless stateUuid
+        #workflow = universe.workflows.findWhere name: 'CustomerOrder'
+        #workflow.states.find { |s| s.uuid == stateUuid }
+      #end
+    #end
   end
 end

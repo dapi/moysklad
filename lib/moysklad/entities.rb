@@ -13,7 +13,10 @@ module Moysklad
       Attribute
       GoodRef
       Base
+      Counterparty
+      Organization
       CustomerOrder
+      CustomerOrderPosition
       CustomEntity
       Variant
       AttributeMetadata

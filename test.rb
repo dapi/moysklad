@@ -49,7 +49,10 @@ universe = Moysklad::Universe.build login: ENV['MS_LOGIN'], password: ENV['MS_PA
   #puts a.entities(universe).map { |e| [e.id, e.name].join(':') }.join(', ')
 #end
 
-# a = universe.counterparties.all
+a = universe.counterparties.all(filter: { phone: '79033891228' })
+
+
+binding.pry
 
 # products = universe.products.all
 

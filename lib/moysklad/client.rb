@@ -46,7 +46,13 @@ class Moysklad::Client
   end
 
   def delete path
-    parse_response client.delete path
+    logger.debug "Client: DELETE #{path}"
+    result = client.delete do |req|
+      req.url path
+      req.headers['Content-Type'] = 'application/json'
+      req.headers['Accept'] = '*/*'
+    end
+    parse_response result
   end
 
   private
@@ -60,7 +66,8 @@ class Moysklad::Client
   def parse_response res
     if res.status == 200
       Moysklad.logger.info "Response: #{res.body}"
-      response = JSON.parse res.body
+      return if res.body.blank?
+      JSON.parse res.body
     else
       Moysklad::Client::Errors.build res
     end

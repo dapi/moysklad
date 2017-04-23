@@ -10,7 +10,7 @@ module Moysklad::Entities
       entity
     end
 
-    def initialize(data)
+    def initialize(data = {})
       data['attrs'] = data.delete 'attributes' if data['attributes']
       super (data || {}).merge(dump: data)
     end

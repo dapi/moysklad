@@ -1,11 +1,14 @@
 class Moysklad::Client
   class Errors
     def self.build res
-      # is_json = res.headers['content-type'].start_with? 'application/json'
+      is_json = res.headers['content-type'].start_with? 'application/json'
+
+      body = res.body.force_encoding('utf-8')
+      raise UnknownError.new body unless is_json
       # Encoding::UndefinedConversionError
       # "\xD0" from ASCII-8BIT to UTF-8
       begin
-        body = JSON.parse res.body.force_encoding('utf-8')
+        body = JSON.parse body
         Moysklad.logger.warn "Moyskad::Client: #{res.status}: #{res.env.url.to_s}\n#{body}"
       rescue Encoding::UndefinedConversionError
       end
@@ -45,6 +48,8 @@ class Moysklad::Client
       message.force_encoding('cp1251').encode('utf-8')
     end
   end
+
+  class UnknownError < Error; end
 
   class NoResourceFound < Error; end
 

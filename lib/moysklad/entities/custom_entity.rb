@@ -9,6 +9,7 @@ module Moysklad::Entities
     attribute :id,                String
     attribute :name, String
     attribute :externalCode,      String
+    attribute :description,      String
 
     # TODO remove
     def entityMetadataUuid

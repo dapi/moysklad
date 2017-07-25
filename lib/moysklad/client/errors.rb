@@ -9,8 +9,12 @@ class Moysklad::Client
       # "\xD0" from ASCII-8BIT to UTF-8
       begin
         body = JSON.parse body
-        Moysklad.logger.warn "Moyskad::Client: #{res.status}: #{res.env.url.to_s}\n#{body}"
-      rescue Encoding::UndefinedConversionError
+        Moysklad.logger.debug "Moyskad::Client: #{res.status}: #{res.env.url.to_s}\n#{body}"
+      rescue Encoding::UndefinedConversionError => err
+        Moyskad.logger.error "#{err}"
+      rescue JSON::ParserError => err
+        Moyskad.logger.error "#{err}: #{res.headers}, body:#{body}"
+        raise ParsingError, body
       end
 
       case res.status
@@ -48,6 +52,7 @@ class Moysklad::Client
       message.force_encoding('cp1251').encode('utf-8')
     end
   end
+  class ParsingError < Error; end
 
   class UnknownError < Error; end
 

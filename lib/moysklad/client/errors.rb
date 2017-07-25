@@ -1,15 +1,22 @@
 class Moysklad::Client
   class Errors
     def self.build res
-      is_json = res.headers['content-type'].start_with? 'application/json'
-
       body = res.body.force_encoding('utf-8')
-      raise UnknownError.new body unless is_json
+      content_type = res.headers['content-type']
+
+      if content_type.start_with? 'application/json'
+        # ok
+      elsif content_type.start_with? 'text/html'
+        raise HtmlParsedError, body
+      else
+        raise UnknownError, body
+      end
+
       # Encoding::UndefinedConversionError
       # "\xD0" from ASCII-8BIT to UTF-8
       begin
         body = JSON.parse body
-        Moysklad.logger.debug "Moyskad::Client: #{res.status}: #{res.env.url.to_s}\n#{body}"
+        Moysklad.logger.debug "Moyskad::Client: #{res.status}: #{res.headers}, #{res.env.url.to_s}\n#{body}"
       rescue Encoding::UndefinedConversionError => err
         Moyskad.logger.error "#{err}"
       rescue JSON::ParserError => err
@@ -75,11 +82,7 @@ class Moysklad::Client
     private
 
     def parse_title body
-      doc = Nokogiri::HTML body
-      # у ResourceForbidden есть <u>
-      # у wrong_password <u> несколько
-      # Можно ошибку разбирать более грамотно по свойствам type, message, description: http://i.gyazo.com/e9d5d08bd610882d87f39d9002cdf25a.png
-      [doc.css('body').css('h1').text,doc.css('body').css('u').to_a.map(&:text).compact.last].join('; ')
+      Nokogiri::HTML(body).css('body').text
     rescue => err
       Moysklad.logger.debug "Moyskad::Client parse error #{err}: #{body}"
       body.force_encoding('utf-8')

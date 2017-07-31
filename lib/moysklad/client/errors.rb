@@ -74,9 +74,8 @@ class Moysklad::Client
   end
 
   class HtmlParsedError < Error
-    def initialize res
-      @result  = res
-      @message = "[#{res.status}] #{parse_title res.body}"
+    def initialize body
+      @message = parse_title body
     end
 
     private

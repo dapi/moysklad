@@ -16,11 +16,11 @@ class Moysklad::Client
       # "\xD0" from ASCII-8BIT to UTF-8
       begin
         body = JSON.parse body
-        Moysklad.logger.debug "Moyskad::Client: #{res.status}: #{res.headers}, #{res.env.url.to_s}\n#{body}"
+        Moysklad.logger.debug "Moysklad::Client: #{res.status}: #{res.headers}, #{res.env.url.to_s}\n#{body}"
       rescue Encoding::UndefinedConversionError => err
-        Moyskad.logger.error "#{err}"
+        Moysklad.logger.error "#{err}"
       rescue JSON::ParserError => err
-        Moyskad.logger.error "#{err}: #{res.headers}, body:#{body}"
+        Moysklad.logger.error "#{err}: #{res.headers}, body:#{body}"
         raise ParsingError, body
       end
 
@@ -83,7 +83,7 @@ class Moysklad::Client
     def parse_title body
       Nokogiri::HTML(body).css('body').text
     rescue => err
-      Moysklad.logger.debug "Moyskad::Client parse error #{err}: #{body}"
+      Moysklad.logger.debug "Moysklad::Client parse error #{err}: #{body}"
       body.force_encoding('utf-8')
     end
   end

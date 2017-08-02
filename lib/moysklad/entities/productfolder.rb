@@ -5,7 +5,7 @@ module Moysklad::Entities
     attribute :accountId,         String
     attribute :owner,             Owner
     attribute :group,             Group
-    attribute :description,       Boolean
+    attribute :description,       String
     attribute :vat, Float
     attribute :effectiveVat, Float
     attribute :productFolder, self

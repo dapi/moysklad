@@ -53,10 +53,10 @@ class Moysklad::Client
     end
 
     def to_s
-      message.encode('utf-8')
+      message.to_s.encode('utf-8')
       # <?xml version="1.0" encoding="UTF-8"?> <error> <uid>kiiiosk@wannabemoscow</uid> <moment>20150609112728449</moment> <message>������������ ���� ���������� �������� ������������.</message> </error>
     rescue Encoding::CompatibilityError
-      message.force_encoding('cp1251').encode('utf-8')
+      message.to_s.force_encoding('cp1251').encode('utf-8')
     end
   end
   class ParsingError < Error; end

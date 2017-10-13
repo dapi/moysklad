@@ -20,10 +20,10 @@ module Moysklad::Entities
       when 'customentity'
         Moysklad::Entities::CustomEntity
       else
-        constantize 'Moysklad::Entities::' + camelize(type)
+        class_name = 'Moysklad::Entities::' + camelize(type)
+        raise Moysklad::Error, "No entity class for #{type} type" unless Object.const_defined? class_name
+        constantize class_name
       end
-    rescue NameError
-      raise Moysklad::Error, "No entity class for #{type} type"
     end
   end
 

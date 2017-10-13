@@ -6,6 +6,7 @@ module Moysklad
       Uom
       Productfolder
       Product
+      Bundle
       Barcode
       Error
       Consignment

@@ -28,7 +28,6 @@ class Moysklad::Client
       req.url path
       req.headers['Content-Type'] = 'application/json'
       req.headers['Accept'] = '*/*'
-      puts data
       req.body = data
     end
     parse_response result
@@ -64,8 +63,9 @@ class Moysklad::Client
   end
 
   def parse_response res
+    Moysklad.logger.debug "Response [#{res.status}]: #{res.body}"
+
     if res.status == 200
-      Moysklad.logger.info "Response: #{res.body}"
       return if res.body.blank?
       JSON.parse res.body
     else

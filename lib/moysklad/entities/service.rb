@@ -13,6 +13,7 @@ module Moysklad::Entities
     attribute :effectiveVat, Float
     attribute :pathName,          String
     attribute :productFolder,     Productfolder
+    attribute :description,       String
 
     attribute :uom,               Uom
 
@@ -20,9 +21,9 @@ module Moysklad::Entities
     attribute :salePrices,        Array[Price]
 
     # Когда загружаем через ассортименты эти поля устанавливаются
-    attribute :stock, Float
-    attribute :reserve, Float
-    attribute :inTransit, Float
-    attribute :quantity, Float
+    # attribute :stock, Float
+    # attribute :reserve, Float
+    # attribute :inTransit, Float
+    # attribute :quantity, Float
   end
 end

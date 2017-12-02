@@ -17,6 +17,8 @@ module Moysklad::Resources
   %w{Products Productfolders Uoms PriceType Countries Variants
     Counterparty
     Organization
+    Service
+    Bundle
     CustomerOrders Store
     Currency
     Workflows

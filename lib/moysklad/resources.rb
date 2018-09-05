@@ -22,7 +22,7 @@ module Moysklad::Resources
     CustomerOrders Store
     Currency
     Workflows
-    Companies Consignments MyCompanies}.each do |klass_name|
+    Companies Consignments MyCompanies Group}.each do |klass_name|
     const_set klass_name, Class.new( Base )
   end
 end

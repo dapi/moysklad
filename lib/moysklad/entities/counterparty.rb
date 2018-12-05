@@ -14,5 +14,7 @@ module Moysklad::Entities
     attribute :kpp, String
     attribute :ogrn, String
     attribute :okpo, String
+
+    attribute :description, String
   end
 end

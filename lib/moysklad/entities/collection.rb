@@ -1,6 +1,3 @@
-require_relative 'context'
-require_relative 'collection_meta'
-
 module Moysklad::Entities
   class RowItems < Virtus::Attribute
     include ActiveSupport::Inflector

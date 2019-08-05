@@ -1,10 +1,3 @@
-require_relative 'entity'
-require_relative 'owner'
-require_relative 'group'
-require_relative 'rate'
-require_relative 'customer_order_position'
-require_relative 'time'
-
 module Moysklad::Entities
   # Пример:
   # https://online.moysklad.ru/api/remap/1.1/doc/index.html#документ-заказ-покупателя

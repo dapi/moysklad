@@ -5,8 +5,8 @@ describe Moysklad::Entities::CustomerOrderPosition do
     subject {
       p= Moysklad::Entities::CustomerOrderPosition.new 
       p.vat = 18
-      p.basePrice = Moysklad::Entities::Price.new
-      p.basePrice.sum = 123
+      p.price = Moysklad::Entities::Price.new
+      p.price.value = 123
       p.reserve = true
       p
     }

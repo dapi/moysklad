@@ -1,42 +1,49 @@
 module Moysklad
   module Entities
-    extend ActiveSupport::Autoload
     %w{
-      AttachmentDocument
-      Uom
-      Productfolder
-      Product
-      Bundle
-      Barcode
-      Error
-      Consignment
-      MyCompany
-      Attribute
-      GoodRef
-      Base
-      Counterparty
-      Organization
-      CustomerOrder
-      CustomerOrderPosition
-      CustomEntity
-      Variant
-      AttributeMetadata
-      EmbeddedEntityMetadata
-      CompanySettingsMetadata
-      Price
-      Currency
-      Company
-      Store
-      Service
-      Owner
-      Group
-      Collection
-      Page
-      ResourceMetadata
-      Attribute
-      Characteristic
+      base
+      meta
+      entity
+      country
+      assortment
+      attribute_value
+      attribute
+      attribute_metadata
+      owner
+      group
+      productfolder
+      uom
+      currency     
+      price
+      image
+      employee
+      context
+      product
+      bundle
+      characteristic
+      characteristic_metadata
+      collection_meta
+      collection
+      company_settings_metadata
+      consignment
+      contract
+      counterparty
+      custom_entity
+      rate
+      customer_order
+      customer_order_position
+      organization
+      page
+      price_type
+      rate
+      resource_metadata
+      service
+      shortcut
+      store
+      time
+      variant
     }.each do |m|
-      autoload m
+      require_relative "entities/#{m}"
     end
   end
 end

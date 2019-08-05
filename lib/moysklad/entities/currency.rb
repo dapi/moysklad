@@ -1,5 +1,3 @@
-require_relative 'meta'
-
 module Moysklad::Entities
   class Currency < Base
     class Unit < Base

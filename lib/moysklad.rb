@@ -1,18 +1,22 @@
 require 'virtus'
+require 'json'
 require 'active_support'
-require "moysklad/version"
+require 'moysklad/version'
 
 require 'logger'
 
 module Moysklad
   mattr_accessor :custom_logger
-  extend ActiveSupport::Autoload
 
-  require_relative 'moysklad/entities'
-  autoload :Error
-  autoload :Resources
-  autoload :Client
-  autoload :Universe
+  %w{
+    entities
+    error
+    resources
+    client
+    universe
+  }.each do |m|
+    require_relative "moysklad/#{m}"
+  end
 
   def self.logger= value
     self.custom_logger = value

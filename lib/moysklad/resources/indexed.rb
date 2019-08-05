@@ -1,7 +1,3 @@
-require_relative 'where_filter'
-require_relative 'load_all'
-require_relative 'indexed_cache'
-
 module Moysklad::Resources
   class Indexed  < SimpleDelegator
     WrongEntriesCountError = Class.new StandardError
@@ -58,7 +54,7 @@ module Moysklad::Resources
       cached_index
     end
 
-    def pull_list(params)
+    def pull_list(params={})
       load_all(params)
     end
 

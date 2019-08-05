@@ -10,10 +10,6 @@ describe Moysklad::Universe do
   end
 
   it do
-    expect(subject.features.resource).to be_a Moysklad::Resources::Features
-  end
-
-  it do
     expect(subject.embedded_entity_metadata.resource).to be_a Moysklad::Resources::EmbeddedEntityMetadata
   end
 

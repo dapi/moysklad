@@ -37,25 +37,5 @@ describe Moysklad::Resources::Base do
         expect{subject}.to raise_error Nokogiri::XML::SyntaxError
       end
     end
-
-  end
-
-  describe 'page' do
-    let(:resource) { Moysklad::Resources::Features.new client: client }
-
-    before do
-      stub_rest :Feature
-    end
-
-    subject { resource.page }
-
-    it do
-      expect(subject).to be_a Moysklad::Entities::Page
-      expect(subject.total).to eq feature_list_items_count
-      expect(subject.count).to eq Moysklad::Entities::Collection::DEFAULT_COUNT
-      expect(subject.start).to eq 0
-      expect(subject.items.count).to eq feature_list_items_count
-    end
-
   end
 end

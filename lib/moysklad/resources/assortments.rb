@@ -1,4 +1,3 @@
-require_relative 'load_all'
 module Moysklad::Resources
   class Assortments < Base
     include LoadAll

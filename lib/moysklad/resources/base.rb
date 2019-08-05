@@ -1,5 +1,7 @@
 require 'json'
 class Moysklad::Resources::Base
+  include Positions
+
   PREFIX_PATH = 'entity/'
 
   def self.inherited superclass

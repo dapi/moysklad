@@ -5,7 +5,7 @@ module Moysklad::Resources
   # https://online.moysklad.ru/api/remap/1.1/entity/product/metadata/
   class CustomEntityMetadata < Base
 
-    def list
+    def list(_params)
       raise
     end
 

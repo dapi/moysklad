@@ -11,25 +11,12 @@ describe Moysklad::Entities::CustomerOrderPosition do
       p
     }
 
-    it 'to_xml' do
-      expect(subject.to_xml).to be_a String
+    it 'to_json' do
+      expect(subject.to_json).to be_a String
     end
 
     it 'to_s' do
       expect(subject.to_s).to be_a String
     end
-
-    it 'include xml' do
-      expect(subject.to_xml).to include '<?xml version="1.0" encoding="utf-8"?>'
-    end
-
-    it 'include customerOrderPosition' do
-      expect(subject.to_xml).to include "<customerOrderPosition"
-    end
-
-    it 'include basePrice' do
-      expect(subject.to_xml).to include "<basePrice"
-    end
   end
-
 end

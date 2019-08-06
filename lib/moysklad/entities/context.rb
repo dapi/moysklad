@@ -1,5 +1,3 @@
-require_relative 'employee'
-
 module Moysklad::Entities
   class Context
     include Virtus.model

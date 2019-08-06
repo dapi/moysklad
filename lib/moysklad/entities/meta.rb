@@ -1,5 +1,3 @@
-require_relative 'base'
-
 module Moysklad::Entities
   class Meta < Base
     attribute :href, String

@@ -1,6 +1,3 @@
-require_relative 'base'
-require_relative 'meta'
-
 module Moysklad::Entities
   class Entity < Base
 

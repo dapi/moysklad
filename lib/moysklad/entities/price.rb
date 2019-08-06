@@ -1,4 +1,3 @@
-require_relative 'currency'
 module Moysklad::Entities
   class Price < Base
     attribute :value, Float

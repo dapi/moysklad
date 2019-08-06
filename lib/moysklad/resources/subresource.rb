@@ -1,4 +1,3 @@
-require_relative 'where_filter'
 module Moysklad::Resources
   class Subresource < Struct.new(:items)
     include WhereFilter

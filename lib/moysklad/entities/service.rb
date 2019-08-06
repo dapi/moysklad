@@ -1,9 +1,3 @@
-require_relative 'entity'
-require_relative 'uom'
-require_relative 'owner'
-require_relative 'group'
-require_relative 'price'
-
 module Moysklad::Entities
   class Service < Entity
     attribute :accountId,         String

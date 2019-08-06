@@ -1,4 +1,3 @@
-require_relative 'base'
 module Moysklad::Entities
   class Image < Base
     attribute :meta,  Meta

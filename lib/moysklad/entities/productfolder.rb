@@ -1,5 +1,3 @@
-require_relative 'entity'
-
 module Moysklad::Entities
   class Productfolder < Entity
     attribute :accountId,         String

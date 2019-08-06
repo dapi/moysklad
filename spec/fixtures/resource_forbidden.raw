@@ -1,9 +1,0 @@
-HTTP/1.1 403 Forbidden
-Server: nginx/1.6.2
-Date: Tue, 30 Dec 2014 08:45:56 GMT
-Content-Type: text/html;charset=utf-8
-Content-Length: 1054
-Connection: close
-Vary: Accept-Encoding
-
-<html><head><title>JBoss Web/7.2.0.Final - JBWEB000064: Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>JBWEB000065: HTTP Status 403 - </h1><HR size="1" noshade="noshade"><p><b>JBWEB000309: type</b> JBWEB000067: Status report</p><p><b>JBWEB000068: message</b> <u></u></p><p><b>JBWEB000069: description</b> <u>JBWEB000123: Access to the specified resource has been forbidden.</u></p><HR size="1" noshade="noshade"><h3>JBoss Web/7.2.0.Final</h3></body></html>

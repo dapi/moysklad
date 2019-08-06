@@ -6,7 +6,7 @@ module Moysklad::Resources
     end
 
     def all
-      page.items
+      list
     end
 
     def find

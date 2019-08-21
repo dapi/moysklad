@@ -1,9 +1,10 @@
 module Moysklad::Entities
   class AttributeValue < Virtus::Attribute
     def coerce(value)
-      if value.is_a? String
+      case value
+      when String, Float
         value
-      elsif value.is_a? ::Hash
+      when Hash
         if value['meta']['type'] == 'customentity'
           CustomEntity.new value
         else

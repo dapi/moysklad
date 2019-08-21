@@ -1,6 +1,5 @@
-require 'json'
 class Moysklad::Resources::Base
-  include Positions
+  include Moysklad::Resources::Positions
 
   PREFIX_PATH = 'entity/'
 

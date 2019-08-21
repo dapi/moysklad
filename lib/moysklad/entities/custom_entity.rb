@@ -1,6 +1,3 @@
-require_relative 'meta'
-require_relative 'context'
-
 # Элемент в справочнике (DictionaryEntity)
 module Moysklad::Entities
   class CustomEntity < Base

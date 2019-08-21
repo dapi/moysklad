@@ -1,10 +1,3 @@
-require_relative 'currency'
-require_relative 'productfolder'
-require_relative 'uom'
-require_relative 'entity'
-require_relative 'attribute_metadata'
-require_relative 'image'
-
 module Moysklad::Entities
   class Product < Entity
     attribute :accountId,         String

@@ -2,7 +2,9 @@ module Moysklad::Resources
   # Элементы словаря
   class CustomEntities < Base
     # custom_entity_meta_id - id словаря, элементы которого хотим получить
-    def initialize custom_entity_meta_id: nil, client:, list_path: nil
+    def initialize(custom_entity_meta_id: nil, client: nil, list_path: nil)
+      raise 'Client empty' if client.nil? # support ruby 2.0.0
+
       @custom_entity_meta_id = custom_entity_meta_id
       super client: client, list_path: list_path
     end

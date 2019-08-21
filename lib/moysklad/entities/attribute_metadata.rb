@@ -1,5 +1,3 @@
-require_relative 'attribute_value'
-
 module Moysklad::Entities
   class AttributeMetadata < Base
     attribute :meta, Meta

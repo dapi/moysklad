@@ -1,17 +1,29 @@
 module Moysklad::Resources
   mattr_accessor :resources
 
-  extend ActiveSupport::Autoload
-
   def self.register_resource resource_class
     self.resources ||= []
     self.resources << resource_class
   end
 
-  require_relative 'resources/base'
-  require_relative 'resources/indexed'
-  require_relative 'resources/custom_entities'
-  require_relative 'resources/assortments'
+  %w{
+    positions
+    base
+    load_all
+    assortments
+    custom_entities
+    custom_entity_metadata
+    embedded_entity_metadata
+    where_filter
+    indexed_cache
+    indexed
+    embedded_entity_metadata_indexed
+    products
+    stock
+    subresource
+  }.each do |m|
+    require_relative "resources/#{m}"
+  end
 
   # Простые ресурсы, которые создаются автоматически
   %w{Products Productfolders Uoms PriceType Countries Variants
@@ -21,8 +33,7 @@ module Moysklad::Resources
     Bundle
     CustomerOrders Store
     Currency
-    Workflows
-    Companies Consignments MyCompanies Group}.each do |klass_name|
+    Consignments Group}.each do |klass_name|
     const_set klass_name, Class.new( Base )
   end
 end

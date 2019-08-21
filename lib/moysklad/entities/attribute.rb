@@ -1,6 +1,3 @@
-require_relative 'attribute_value'
-require_relative 'meta'
-
 # Атрибут товара (ссылка на его тип и его значение)
 module Moysklad::Entities
   class Attribute < Base

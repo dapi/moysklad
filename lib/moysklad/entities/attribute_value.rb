@@ -1,5 +1,3 @@
-require_relative 'custom_entity'
-
 module Moysklad::Entities
   class AttributeValue < Virtus::Attribute
     def coerce(value)

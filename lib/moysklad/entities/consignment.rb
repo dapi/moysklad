@@ -1,6 +1,3 @@
-require_relative 'entity'
-require_relative 'assortment'
-
 module Moysklad::Entities
   class Consignment < Entity
     attribute :meta, Meta

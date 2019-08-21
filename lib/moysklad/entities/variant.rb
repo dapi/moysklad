@@ -1,7 +1,3 @@
-require_relative 'characteristic'
-require_relative 'shortcut'
-require_relative 'entity'
-
 module Moysklad::Entities
   class Variant < Entity
 

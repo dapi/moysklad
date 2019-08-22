@@ -26,7 +26,7 @@ module Moysklad::Resources
   end
 
   # Простые ресурсы, которые создаются автоматически
-  %w{Products Productfolders Uoms PriceType Countries Variants
+  %w{Productfolders Uoms PriceType Countries Variants
     Counterparty
     Organization
     Service

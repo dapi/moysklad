@@ -4,7 +4,7 @@ module Moysklad::Entities
       case value
       when String, Float
         value
-      when Hash
+      when ::Hash
         if value['meta']['type'] == 'customentity'
           CustomEntity.new value
         else

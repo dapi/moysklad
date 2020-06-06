@@ -14,5 +14,7 @@ module Moysklad::Entities
     attribute :okpo, String
 
     attribute :description, String
+    
+    attribute :syncid, String
   end
 end

@@ -111,6 +111,6 @@ class Moysklad::Resources::Base
   end
 
   def prefix_path
-    PREFIX_PATH + self.class.type.downcase
+    PREFIX_PATH + self.class.type.split(/(?=[A-Z])/).join('_').downcase
   end
 end

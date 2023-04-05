@@ -11,8 +11,8 @@ class Moysklad::Resources::Base
   # Возвращает этот-же ресурс только индексированный
   #
   # @return [Moysklad::Resources::Indexed]
-  def self.indexed *args
-    Moysklad::Resources::Indexed.new new(*args)
+  def self.indexed client: nil, list_path: nil
+    Moysklad::Resources::Indexed.new new(client: client, list_path: list_path)
   end
 
   # https://support.moysklad.ru/hc/ru/articles/203404253-REST-сервис-синхронизации-данных

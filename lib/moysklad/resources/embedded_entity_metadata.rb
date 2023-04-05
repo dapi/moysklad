@@ -12,8 +12,8 @@ module Moysklad::Resources
       :embedded_entity_metadata
     end
 
-    def self.indexed *args
-      Moysklad::Resources::EmbeddedEntityMetadataIndexed.new new(*args)
+    def self.indexed client: nil, list_path: nil
+      Moysklad::Resources::EmbeddedEntityMetadataIndexed.new new(client: client, list_path: list_path)
     end
   end
 end

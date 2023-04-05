@@ -40,7 +40,7 @@ module Moysklad
     Moysklad::Resources.resources.each do |resource_klass|
       @@resources_list << resource_klass.pluralized_type.to_sym
       define_method resource_klass.pluralized_type do |opts={}|
-        @resources[resource_klass.type] ||= resource_klass.indexed( opts.merge client: client )
+        @resources[resource_klass.type] ||= resource_klass.indexed( **opts.merge(client: client) )
       end
     end
 

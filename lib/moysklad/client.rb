@@ -8,8 +8,9 @@ class Moysklad::Client
   URL  ='https://online.moysklad.ru/api/remap/1.1/'
 
   def initialize login: nil, password: nil
-    @client = Faraday.new URL
-    @client.basic_auth login, password
+    @client = Faraday.new URL do |conn|
+      conn.request(:authorization, :basic, login, password)
+    end
   end
 
   def download(path, filename)

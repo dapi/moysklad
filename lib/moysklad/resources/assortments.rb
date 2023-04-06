@@ -2,8 +2,8 @@ module Moysklad::Resources
   class Assortments < Base
     include LoadAll
 
-    def self.indexed(*args)
-      new(*args)
+    def self.indexed(args = {})
+      new(**args)
     end
 
     def all(params = {})

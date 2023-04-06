@@ -9,7 +9,11 @@ class Moysklad::Client
 
   def initialize login: nil, password: nil
     @client = Faraday.new URL do |conn|
-      conn.request(:authorization, :basic, login, password)
+      if Faraday::VERSION.split('.').first.to_i < 2
+        conn.request(:basic_auth, login, password)
+      else
+        conn.request(:authorization, :basic, login, password)
+      end
     end
   end
 

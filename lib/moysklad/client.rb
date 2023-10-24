@@ -9,6 +9,7 @@ class Moysklad::Client
 
   def initialize login: nil, password: nil
     @client = Faraday.new URL do |conn|
+      conn.options.timeout = ENV.fetch('MOYSKLAD_HTTP_TIMEOUT', 120)
       if Faraday::VERSION.split('.').first.to_i < 2
         conn.request(:basic_auth, login, password)
       else

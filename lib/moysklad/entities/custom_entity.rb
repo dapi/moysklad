@@ -1,12 +1,12 @@
 # Элемент в справочнике (DictionaryEntity)
 module Moysklad::Entities
   class CustomEntity < Base
-    attribute :meta, Meta
-    attribute :accountId,                String
-    attribute :id,                String
-    attribute :name, String
-    attribute :externalCode,      String
-    attribute :description,      String
+    attribute :meta,         Meta
+    attribute :accountId,    String
+    attribute :id,           String
+    attribute :name,         String
+    attribute :externalCode, String
+    attribute :description,  String
 
     # TODO remove
     def entityMetadataUuid

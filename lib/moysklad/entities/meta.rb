@@ -1,9 +1,9 @@
 module Moysklad::Entities
   class Meta < Base
-    attribute :href, String
+    attribute :href,         String
     attribute :metadataHref, String
-    attribute :type, String
-    attribute :mediaType, String # application/json
+    attribute :type,         String
+    attribute :mediaType,    String # application/json
 
     def id
       @id ||= href.split('/').last

@@ -20,7 +20,7 @@ module Moysklad
 
     # Все элементы всех словарей
     def all_custom_entities
-      @all_custom_entities ||= company_settings_metadata.customEntities.map { |d| d.entities(self) }
+      @all_custom_entities ||= company_settings_metadata.customEntities.map { |d| d.entities(self) }.flatten
     end
 
     # Ленивое создание universe

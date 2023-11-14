@@ -8,11 +8,6 @@ module Moysklad::Entities
     attribute :externalCode, String
     attribute :description,  String
 
-    # TODO remove
-    def entityMetadataUuid
-      dictionaryId
-    end
-
     # ID Словаря
     def dictionaryId
       meta.metadataHref.split('/').last

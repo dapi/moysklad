@@ -1,5 +1,6 @@
 module Moysklad::Entities
   class Product < Entity
+    include AttributesConverter
     attribute :accountId,         String
     attribute :owner,             Owner
     attribute :group,             Group

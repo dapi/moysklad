@@ -1,14 +1,20 @@
 require 'faraday'
+require 'faraday/detailed_logger'
+require 'faraday_curl'
 
 require_relative 'client/errors'
 
 class Moysklad::Client
+  URL  ='https://api.moysklad.ru/api/remap/1.2/'
 
-  # URL = 'https://online.moysklad.ru'
-  URL  ='https://online.moysklad.ru/api/remap/1.1/'
-
-  def initialize login: nil, password: nil
+  def initialize login: nil, password: nil, logger: nil
     @client = Faraday.new URL do |conn|
+      unless logger.nil?
+        binding.pry
+        conn.response :detailed_logger, logger
+        conn.request :curl, logger, :info
+      end
+
       conn.options.timeout = ENV.fetch('MOYSKLAD_HTTP_TIMEOUT', 120)
       if Faraday::VERSION.split('.').first.to_i < 2
         conn.request(:basic_auth, login, password)
@@ -34,6 +40,7 @@ class Moysklad::Client
       req.url path
       req.headers['Content-Type'] = 'application/json'
       req.headers['Accept'] = '*/*'
+      req.headers['Accept-Encoding'] = 'gzip'
       req.body = data
     end
     parse_response result
@@ -45,6 +52,7 @@ class Moysklad::Client
       req.url path
       req.headers['Content-Type'] = 'application/json'
       req.headers['Accept'] = '*/*'
+      req.headers['Accept-Encoding'] = 'gzip'
       req.body = data
     end
     parse_response result
@@ -56,6 +64,7 @@ class Moysklad::Client
       req.url path
       req.headers['Content-Type'] = 'application/json'
       req.headers['Accept'] = '*/*'
+      req.headers['Accept-Encoding'] = 'gzip'
     end
     parse_response result
   end

@@ -13,7 +13,8 @@ module Moysklad
       group
       productfolder
       uom
-      currency     
+      currency
+      price_type
       price
       image
       employee
@@ -34,7 +35,6 @@ module Moysklad
       customer_order_position
       organization
       page
-      price_type
       rate
       resource_metadata
       service

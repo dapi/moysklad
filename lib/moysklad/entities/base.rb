@@ -10,11 +10,6 @@ module Moysklad::Entities
       entity
     end
 
-    def initialize(data = {})
-      data['attrs'] = data.delete 'attributes' if data['attributes']
-      super (data || {}).merge(dump: data)
-    end
-
     def to_json(*args)
       presented = {}
       to_h.each_pair do |k, v|

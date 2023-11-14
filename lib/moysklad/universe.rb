@@ -15,25 +15,20 @@ module Moysklad
     end
 
     def company_settings_metadata
-      Moysklad::Entities::CompanySettingsMetadata.build client.get('entity/companysettings/metadata'), self
+      @company_settings_metadata ||= Moysklad::Entities::CompanySettingsMetadata.build client.get('context/companysettings/metadata'), self
     end
 
     # Все элементы всех словарей
     def all_custom_entities
-      list = []
-      dictionaries = company_settings_metadata.customEntities
-      dictionaries.each do |d|
-        list += d.entities(self)
-      end
-      list
+      @all_custom_entities ||= company_settings_metadata.customEntities.map { |d| d.entities(self) }.flatten
     end
 
     # Ленивое создание universe
     #
     # @param login
     # @param password
-    def self.build login: nil, password: nil
-      new client: client_class.new(login: login, password: password)
+    def self.build login: nil, password: nil, logger: nil
+      new client: client_class.new(login: login, password: password, logger: nil)
     end
 
     @@resources_list = []
@@ -47,7 +42,5 @@ module Moysklad
     def class_by_resource resource
       "Moysklad::Resources::#{resource.to_s.singularize.capitalize}".constantize
     end
-
   end
-
 end

@@ -2,6 +2,7 @@ require 'virtus'
 require 'json'
 require 'active_support'
 require 'moysklad/version'
+require 'moysklad/attributes_converter'
 
 require 'logger'
 

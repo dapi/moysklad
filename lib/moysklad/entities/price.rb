@@ -2,7 +2,7 @@ module Moysklad::Entities
   class Price < Base
     attribute :value, Float
     attribute :currency, Currency
-    attribute :priceType, String # Цена продажи/ Распродажа
+    attribute :priceType, PriceType # Цена продажи/ Распродажа
 
     def self.from_money money
       raise 'not implemented'

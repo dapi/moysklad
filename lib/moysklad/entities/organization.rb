@@ -1,5 +1,6 @@
 module Moysklad::Entities
   class Organization < Entity
+    include AttributesConverter
     attribute :externalCode, String
     attribute :archived, Boolean
     attribute :companyType, String

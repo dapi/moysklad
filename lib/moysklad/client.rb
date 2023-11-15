@@ -10,7 +10,6 @@ class Moysklad::Client
   def initialize login: nil, password: nil, logger: nil
     @client = Faraday.new URL do |conn|
       unless logger.nil?
-        binding.pry
         conn.response :detailed_logger, logger
         conn.request :curl, logger, :info
       end

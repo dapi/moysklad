@@ -4,11 +4,10 @@ module AttributesConverter
     if data['attributes']
       if data['attributes'].is_a? Array
         data['attrs'] = data.delete 'attributes'
-        binding.pry
       elsif data['attributes'].is_a? Hash
-        puts data['attributes']
+        # do nothing
       else
-        binding.pry
+        raise "Strange attribute class #{data['attribute']}"
       end
     end
     super data

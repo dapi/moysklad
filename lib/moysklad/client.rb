@@ -77,11 +77,12 @@ class Moysklad::Client
   end
 
   def parse_response res
-    Moysklad.logger.debug "Response [#{res.status}]"
+    body = (res.body || '').force_encoding('utf-8')
+    Moysklad.logger.debug "Response [#{res.status}] with body #{body}"
 
     if res.status == 200
-      return if res.body.blank?
-      JSON.parse res.body
+      return if body.blank?
+      JSON.parse body
     else
       Moysklad::Client::Errors.build res
     end

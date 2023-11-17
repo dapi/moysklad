@@ -77,7 +77,7 @@ class Moysklad::Client
   end
 
   def parse_response res
-    Moysklad.logger.debug "Response [#{res.status}]: #{res.body}"
+    Moysklad.logger.debug "Response [#{res.status}]"
 
     if res.status == 200
       return if res.body.blank?

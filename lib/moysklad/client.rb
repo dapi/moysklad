@@ -1,6 +1,7 @@
 require 'faraday'
 require 'faraday/detailed_logger'
 require 'faraday_curl'
+require 'faraday/gzip'
 
 require_relative 'client/errors'
 
@@ -24,22 +25,27 @@ class Moysklad::Client
   end
 
   def download(path, filename)
-    response = client.get path
+    response = client.get path do |req|
+      req.request :gzip
+    end
     File.open(filename, 'wb') { |fp| fp.write(response.body) }
   end
 
   def get path, params={}
     logger.debug "Client: GET #{path} #{params}"
-    parse_response client.get path, params
+    result = client.get path, params do |req|
+      req.request :gzip
+    end
+    parse_response result
   end
 
   def post path, data
     logger.debug "Client: POST #{path}"
     result = client.post do |req|
       req.url path
+      req.request :gzip
       req.headers['Content-Type'] = 'application/json'
       req.headers['Accept'] = '*/*'
-      req.headers['Accept-Encoding'] = 'gzip'
       req.body = data
     end
     parse_response result
@@ -48,10 +54,10 @@ class Moysklad::Client
   def put path, data
     logger.debug "Client: PUT #{path}"
     result = client.put do |req|
+      req.request :gzip
       req.url path
       req.headers['Content-Type'] = 'application/json'
       req.headers['Accept'] = '*/*'
-      req.headers['Accept-Encoding'] = 'gzip'
       req.body = data
     end
     parse_response result
@@ -60,10 +66,10 @@ class Moysklad::Client
   def delete path
     logger.debug "Client: DELETE #{path}"
     result = client.delete do |req|
+      req.request :gzip
       req.url path
       req.headers['Content-Type'] = 'application/json'
       req.headers['Accept'] = '*/*'
-      req.headers['Accept-Encoding'] = 'gzip'
     end
     parse_response result
   end
@@ -77,7 +83,7 @@ class Moysklad::Client
   end
 
   def parse_response res
-    body = (res.body || '').force_encoding('utf-8')
+    body = res.body
     Moysklad.logger.debug "Response [#{res.status}] with body #{body}"
 
     if res.status == 200

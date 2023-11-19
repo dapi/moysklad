@@ -22,8 +22,8 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'faraday'
   spec.add_runtime_dependency 'faraday-gzip'
+  spec.add_runtime_dependency 'faraday-encoding'
   spec.add_runtime_dependency 'virtus'
-  # spec.add_runtime_dependency 'nokogiri-happymapper'
   spec.add_runtime_dependency 'activesupport', '>=3.0.0'
 
   spec.add_development_dependency "bundler"

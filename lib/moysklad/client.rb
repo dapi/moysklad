@@ -2,6 +2,7 @@ require 'faraday'
 require 'faraday/detailed_logger'
 require 'faraday_curl'
 require 'faraday/gzip'
+require 'faraday/encoding'
 
 require_relative 'client/errors'
 
@@ -15,6 +16,7 @@ class Moysklad::Client
         conn.request :curl, logger, :info
       end
       conn.request :gzip
+      conn.response :encoding
 
       conn.options.timeout = ENV.fetch('MOYSKLAD_HTTP_TIMEOUT', 120)
       if Faraday::VERSION.split('.').first.to_i < 2

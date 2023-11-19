@@ -24,6 +24,8 @@ class Moysklad::Client
       else
         conn.request(:authorization, :basic, login, password)
       end
+
+      conn.adapter Faraday.default_adapter
     end
   end
 
@@ -79,6 +81,7 @@ class Moysklad::Client
 
   def parse_response res
     body = res.body
+    body.force_encoding 'utf-8' if  res.body.encoding.to_s == "ASCII-8BIT" && res.headers['content-type'].include?('charset=utf-8')
     Moysklad.logger.debug "Response [#{res.status}] with body #{body}"
 
     if res.status == 200

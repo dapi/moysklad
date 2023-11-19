@@ -14,6 +14,7 @@ class Moysklad::Client
         conn.response :detailed_logger, logger
         conn.request :curl, logger, :info
       end
+      conn.request :gzip
 
       conn.options.timeout = ENV.fetch('MOYSKLAD_HTTP_TIMEOUT', 120)
       if Faraday::VERSION.split('.').first.to_i < 2
@@ -25,25 +26,19 @@ class Moysklad::Client
   end
 
   def download(path, filename)
-    response = client.get path do |req|
-      req.request :gzip
-    end
+    response = client.get path
     File.open(filename, 'wb') { |fp| fp.write(response.body) }
   end
 
   def get path, params={}
     logger.debug "Client: GET #{path} #{params}"
-    result = client.get path, params do |req|
-      req.request :gzip
-    end
-    parse_response result
+    parse_response client.get path, params
   end
 
   def post path, data
     logger.debug "Client: POST #{path}"
     result = client.post do |req|
       req.url path
-      req.request :gzip
       req.headers['Content-Type'] = 'application/json'
       req.headers['Accept'] = '*/*'
       req.body = data
@@ -54,7 +49,6 @@ class Moysklad::Client
   def put path, data
     logger.debug "Client: PUT #{path}"
     result = client.put do |req|
-      req.request :gzip
       req.url path
       req.headers['Content-Type'] = 'application/json'
       req.headers['Accept'] = '*/*'
@@ -66,7 +60,6 @@ class Moysklad::Client
   def delete path
     logger.debug "Client: DELETE #{path}"
     result = client.delete do |req|
-      req.request :gzip
       req.url path
       req.headers['Content-Type'] = 'application/json'
       req.headers['Accept'] = '*/*'

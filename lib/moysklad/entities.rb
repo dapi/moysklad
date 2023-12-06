@@ -17,6 +17,7 @@ module Moysklad
       price_type
       price
       image
+      images
       employee
       context
       product

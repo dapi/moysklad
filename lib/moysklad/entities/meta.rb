@@ -4,6 +4,7 @@ module Moysklad::Entities
     attribute :metadataHref, String
     attribute :type,         String
     attribute :mediaType,    String # application/json
+    attribute :downloadHref, String
 
     def id
       @id ||= href.split('/').last

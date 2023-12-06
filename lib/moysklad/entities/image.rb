@@ -4,7 +4,6 @@ module Moysklad::Entities
     attribute :title, String
     attribute :filename, String
     attribute :size, Integer
-
     attribute :updated, Time
     attribute :miniature, Meta
     attribute :tiny, Meta

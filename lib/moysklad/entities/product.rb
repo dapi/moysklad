@@ -17,7 +17,7 @@ module Moysklad::Entities
     attribute :buyPrice,          Currency
     attribute :salePrices,        Array[Price]
 
-    attribute :image,             Image
+    attribute :images,            Images # MetaArray
 
     attribute :article,           String
     attribute :weighed,           Boolean
@@ -43,6 +43,10 @@ module Moysklad::Entities
       cache :features, universe do
         universe.features.where goodUuid: uuid
       end
+    end
+
+    def product_images(universe)
+      Moysklad::Resources::ProductImages.new(client: universe.client, list_path: images.meta.href).list
     end
   end
 end

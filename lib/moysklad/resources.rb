@@ -13,6 +13,7 @@ module Moysklad::Resources
     assortments
     custom_entities
     custom_entity_metadata
+    product_images
     embedded_entity_metadata
     where_filter
     indexed_cache

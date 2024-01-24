@@ -11,6 +11,8 @@ class Moysklad::Client
 
   def initialize login: nil, password: nil, logger: nil
     @client = Faraday.new URL do |conn|
+      # Needs for downloads
+      conn.use FaradayMiddleware::FollowRedirects
       unless logger.nil?
         conn.response :detailed_logger, logger
         conn.request :curl, logger, :info

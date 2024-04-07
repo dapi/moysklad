@@ -50,7 +50,7 @@ module Moysklad::Resources
     end
 
     def index
-      pull_list unless cached_index
+      all unless cached_index
       cached_index
     end
 
